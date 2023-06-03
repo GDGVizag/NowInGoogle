@@ -54,9 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  "assets/io.png",
+                SvgPicture.asset(
+                  "assets/io-logo.svg",
                   width: 100,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : null,
                 ),
                 Text(
                   "I/O '23\nExtended",
@@ -85,7 +88,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      border: Border.all(),
+                      border: Border.all(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
                       borderRadius: BorderRadius.circular(12)),
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
