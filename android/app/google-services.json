@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1010379975924",
+    "project_id": "nowingdev",
+    "storage_bucket": "nowingdev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010379975924:android:3ab77d1741b80c761182a1",
+        "android_client_info": {
+          "package_name": "com.manasmalla.nowingoogle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBitMu-iYbC0D7H3Atir8I6pTmP-4kF_RI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
