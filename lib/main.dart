@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nowingoogle/color_schemes.g.dart';
 import 'package:nowingoogle/firebase_options.dart';
+import 'package:nowingoogle/pages/home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: darkColorScheme,
           fontFamily: "Google Sans"),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: HomePage(),
     );
   }
 }
