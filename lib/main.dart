@@ -87,17 +87,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 24,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                      borderRadius: BorderRadius.circular(12)),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                  child: const Text("Coming Soon"),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        borderRadius: BorderRadius.circular(12)),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                    child: const Text("Register Now"),
+                  ),
                 )
               ],
             ),
