@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nowingoogle/color_schemes.g.dart';
 import 'package:nowingoogle/utils/constants.dart';
-import 'package:nowingoogle/widgets/countdowntimer.dart';
-import 'package:nowingoogle/widgets/functions.dart';
-import 'package:nowingoogle/widgets/miniwidgets.dart';
-import 'package:nowingoogle/widgets/textwidgets.dart';
 
 class RegisterSnippet extends StatelessWidget {
   const RegisterSnippet({super.key});
@@ -12,32 +7,35 @@ class RegisterSnippet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 352,
       child: Padding(
         padding: const EdgeInsets.all(screenPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HeadingOne(
-              child: 'I/O\nExtended',
-              size: 54,
+            Text(
+              'I/O\nExtended',
+              style: Theme.of(context).textTheme.displayLarge,
             ),
-            HeadingOne(child: '8th July 2023'),
-            GeneralSpacer(),
-            HeadingThree(
-              child:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et mauris dui. Duis viverra quam venenatis dui tincidunt.',
-              color: grey.withOpacity(0.6),
+            Text(
+              'August 5, 2023',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            GeneralSpacer(),
-            ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                        Theme.of(context).colorScheme.primary)),
+            const SizedBox(
+              height: 18,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(right: 36.0),
+              child: Text(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et mauris dui. Duis viverra quam venenatis dui tincidunt.',
+              ),
+            ),
+            const SizedBox(
+              height: 36,
+            ),
+            FilledButton(
                 onPressed: () {},
-                child: HeadingThree(
-                  child: 'Register Now',
-                  color: Theme.of(context).colorScheme.onPrimary,
+                child: const Text(
+                  'Register Now',
                 )),
           ],
         ),

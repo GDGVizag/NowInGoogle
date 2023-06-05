@@ -11,11 +11,7 @@ PODS:
   - firebase_core (2.13.0):
     - Firebase/CoreOnly (= 10.9.0)
     - Flutter
-<<<<<<< HEAD
-  - FirebaseAppCheckInterop (10.9.0)
-=======
   - FirebaseAppCheckInterop (10.10.0)
->>>>>>> 77b2e77 (added `userStates` and `profile` components)
   - FirebaseAuth (10.9.0):
     - FirebaseAppCheckInterop (~> 10.0)
     - FirebaseCore (~> 10.0)
@@ -26,11 +22,7 @@ PODS:
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
-<<<<<<< HEAD
-  - FirebaseCoreInternal (10.9.0):
-=======
   - FirebaseCoreInternal (10.10.0):
->>>>>>> 77b2e77 (added `userStates` and `profile` components)
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - Flutter (1.0.0)
   - GoogleUtilities/AppDelegateSwizzler (7.11.1):
@@ -79,17 +71,10 @@ SPEC CHECKSUMS:
   Firebase: bd152f0f3d278c4060c5c71359db08ebcfd5a3e2
   firebase_auth: 202fb0b14e267d2a91d83b75d0ce064ef2063383
   firebase_core: fc68c0f9eec4e800b9418deff14a7e0a504016f3
-<<<<<<< HEAD
-  FirebaseAppCheckInterop: e69dde5cd51b88ee1b4339d6766b691272256f9b
-  FirebaseAuth: 21d5e902fcea44d0d961540fc4742966ae6118cc
-  FirebaseCore: b68d3616526ec02e4d155166bbafb8eca64af557
-  FirebaseCoreInternal: d2b4acb827908e72eca47a9fd896767c3053921e
-=======
   FirebaseAppCheckInterop: 7d3521f56872cf74a01792c0a095a30e054ff6ae
   FirebaseAuth: 21d5e902fcea44d0d961540fc4742966ae6118cc
   FirebaseCore: b68d3616526ec02e4d155166bbafb8eca64af557
   FirebaseCoreInternal: 971029061d326000d65bfdc21f5502c75c8b0893
->>>>>>> 77b2e77 (added `userStates` and `profile` components)
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
@@ -97,8 +82,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
 
-<<<<<<< HEAD
-COCOAPODS: 1.12.1
-=======
 COCOAPODS: 1.11.3
->>>>>>> 77b2e77 (added `userStates` and `profile` components)
