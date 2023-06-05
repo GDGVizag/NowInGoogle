@@ -4,11 +4,13 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     super.key,
     required this.label,
+    required this.onPressed,
     this.primaryColor = const Color(0xFF4285F4),
     this.onPrimaryColor = Colors.white,
   });
 
   final String label;
+  final Function()? onPressed;
   final Color primaryColor;
   final Color onPrimaryColor;
 
@@ -25,7 +27,7 @@ class PrimaryButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(28),
           ),
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(
           label,
           style: Theme.of(context)
