@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({
-    super.key,
-    required this.label,
-    required this.onPressed,
-    this.primaryColor = const Color(0xFF4285F4),
-    this.onPrimaryColor = Colors.white,
-  });
+  const PrimaryButton(
+      {super.key,
+      required this.label,
+      required this.onPressed,
+      this.primaryColor = const Color(0xFF4285F4),
+      this.onPrimaryColor = Colors.white,
+      this.suffix});
 
   final String label;
   final Function()? onPressed;
+  final Widget? suffix;
   final Color primaryColor;
   final Color onPrimaryColor;
 
@@ -28,12 +29,20 @@ class PrimaryButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          label,
-          style: Theme.of(context)
-              .textTheme
-              .labelLarge
-              ?.copyWith(fontWeight: FontWeight.normal, color: onPrimaryColor),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              label,
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.normal, color: onPrimaryColor),
+            ),
+            if (suffix != null)
+              SizedBox(
+                width: 16,
+              ),
+            if (suffix != null) suffix!
+          ],
         ),
       ),
     );
