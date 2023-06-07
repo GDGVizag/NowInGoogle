@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">15</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">15</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2023-06-07 19:32:21</td>
+            <td class="headerValue">2023-06-07 20:42:56</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -68,7 +68,7 @@
 <span id="L6"><span class="lineNum">       6</span>              : import 'package:nowingoogle/widgets/profile/profile_user_role.dart';</span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span>              : class ProfileSection extends StatelessWidget {</span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaUNC tlaBgUNC">           0 :   const ProfileSection(</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC tlaBgGNC">           1 :   const ProfileSection(</span></span>
 <span id="L10"><span class="lineNum">      10</span>              :       {super.key,</span>
 <span id="L11"><span class="lineNum">      11</span>              :       required this.name,</span>
 <span id="L12"><span class="lineNum">      12</span>              :       required this.profession,</span>
@@ -90,25 +90,25 @@
 <span id="L28"><span class="lineNum">      28</span>              :   final bool isPOC;</span>
 <span id="L29"><span class="lineNum">      29</span>              :   final String? bio;</span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaUNC">           0 :   @override</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           1 :   @override</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :   Widget build(BuildContext context) {</span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaUNC">           0 :     return Column(</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 :       children: [</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :         ProfileTitle(name: name, isAttendee: userRole == UserRole.Attendee),</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :         ProfileSubtitle(</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaUNC">           0 :           profession: profession,</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaUNC">           0 :           handle: handle,</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaUNC">           0 :           gender: gender,</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           1 :     return Column(</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           1 :       children: [</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           4 :         ProfileTitle(name: name, isAttendee: userRole == UserRole.Attendee),</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           1 :         ProfileSubtitle(</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           1 :           profession: profession,</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           1 :           handle: handle,</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           1 :           gender: gender,</span></span>
 <span id="L40"><span class="lineNum">      40</span>              :         ),</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :         ProfileUserRole(</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :             userRole: userRole,</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :             isPOC: isPOC,</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :             primaryColor: primaryColor,</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 :             onPrimaryColor: onPrimaryColor),</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           1 :         ProfileUserRole(</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           1 :             userRole: userRole,</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           1 :             isPOC: isPOC,</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           1 :             primaryColor: primaryColor,</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           1 :             onPrimaryColor: onPrimaryColor),</span></span>
 <span id="L46"><span class="lineNum">      46</span>              :         const SizedBox(</span>
 <span id="L47"><span class="lineNum">      47</span>              :           height: 12,</span>
 <span id="L48"><span class="lineNum">      48</span>              :         ),</span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaUNC">           0 :         ProfileBio(bio: bio),</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           2 :         ProfileBio(bio: bio),</span></span>
 <span id="L50"><span class="lineNum">      50</span>              :       ],</span>
 <span id="L51"><span class="lineNum">      51</span>              :     );</span>
 <span id="L52"><span class="lineNum">      52</span>              :   }</span>

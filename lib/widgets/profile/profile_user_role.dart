@@ -37,8 +37,9 @@ class ProfileUserRole extends StatelessWidget {
                       .bodyMedium
                       ?.copyWith(color: onPrimaryColor),
                 ),
-                if (isPOC) const SizedBox(width: 16),
-                if (isPOC)
+                if (isPOC && userRole != UserRole.Attendee)
+                  const SizedBox(width: 16),
+                if (isPOC && userRole != UserRole.Attendee)
                   Text(
                     "POC",
                     style: Theme.of(context)
@@ -48,11 +49,11 @@ class ProfileUserRole extends StatelessWidget {
                   ),
               ],
             )),
-        if (userRole == "Speaker")
+        if (userRole.name == "Speaker")
           const SizedBox(
             width: 12,
           ),
-        if (userRole == "Speaker")
+        if (userRole.name == "Speaker")
           Container(
               margin: const EdgeInsets.only(top: 16, bottom: 8),
               decoration: BoxDecoration(

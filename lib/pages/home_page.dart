@@ -202,8 +202,14 @@ class _HomePageState extends State<HomePage> {
                                                 width: double.infinity,
                                                 child: FilledButton(
                                                   onPressed: () {
-                                                    homeViewModel
-                                                        .createProfile(context);
+                                                    homeViewModel.createProfile(
+                                                        FirebaseFirestore
+                                                            .instance,
+                                                        FirebaseAuth.instance,
+                                                        () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    });
                                                   },
                                                   child: const Text("Save"),
                                                 )),

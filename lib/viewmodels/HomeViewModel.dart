@@ -76,7 +76,8 @@ class HomeViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> createProfile(BuildContext context) async {
+  Future<void> createProfile(FirebaseFirestore firestore,
+      FirebaseAuth firebaseAuth, Function onProfileCreated) async {
     var genderApi =
         await peopleServiceApi.people.get("people/me", personFields: "genders");
     var gender = genderApi.genders?.first.value;
@@ -89,10 +90,10 @@ class HomeViewModel with ChangeNotifier {
       "organization": organization,
       "address": address
     };
-    await FirebaseFirestore.instance
+    await firestore
         .collection("user")
-        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .doc(firebaseAuth.currentUser?.uid)
         .set(data);
-    Navigator.of(context).pop();
+    onProfileCreated();
   }
 }

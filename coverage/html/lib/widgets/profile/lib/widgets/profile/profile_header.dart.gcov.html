@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryMed">87.5&nbsp;%</td>
             <td class="headerCovTableEntry">16</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">14</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2023-06-07 19:32:21</td>
+            <td class="headerValue">2023-06-07 20:42:56</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -65,7 +65,7 @@
 <span id="L3"><span class="lineNum">       3</span>              : import 'package:nowingoogle/widgets/profile/profile_image.dart';</span>
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : class ProfileHeader extends StatelessWidget {</span>
-<span id="L6"><span class="lineNum">       6</span> <span class="tlaUNC tlaBgUNC">           0 :   const ProfileHeader({</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">           1 :   const ProfileHeader({</span></span>
 <span id="L7"><span class="lineNum">       7</span>              :     super.key,</span>
 <span id="L8"><span class="lineNum">       8</span>              :     required this.image,</span>
 <span id="L9"><span class="lineNum">       9</span>              :     required this.avatar,</span>
@@ -78,35 +78,35 @@
 <span id="L16"><span class="lineNum">      16</span>              :   final Color primaryColor;</span>
 <span id="L17"><span class="lineNum">      17</span>              :   final Color onPrimaryColor;</span>
 <span id="L18"><span class="lineNum">      18</span>              : </span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 :   @override</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           1 :   @override</span></span>
 <span id="L20"><span class="lineNum">      20</span>              :   Widget build(BuildContext context) {</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 :     return Stack(</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaUNC">           0 :       children: [</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaUNC">           0 :         ProfileBanner(primaryColor: primaryColor),</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaUNC">           0 :         Column(</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaUNC">           0 :           children: [</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           1 :     return Stack(</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           1 :       children: [</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           2 :         ProfileBanner(primaryColor: primaryColor),</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           1 :         Column(</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           1 :           children: [</span></span>
 <span id="L26"><span class="lineNum">      26</span>              :             const SizedBox(</span>
 <span id="L27"><span class="lineNum">      27</span>              :               height: 24,</span>
 <span id="L28"><span class="lineNum">      28</span>              :             ),</span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaUNC">           0 :             Align(</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           1 :             Align(</span></span>
 <span id="L30"><span class="lineNum">      30</span>              :               alignment: Alignment.topLeft,</span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaUNC">           0 :               child: Padding(</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           1 :               child: Padding(</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :                 padding: const EdgeInsets.symmetric(horizontal: 16.0),</span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaUNC">           0 :                 child: IconButton(</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 :                   onPressed: () {</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           1 :                 child: IconButton(</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC tlaBgUNC">           0 :                   onPressed: () {</span></span>
 <span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :                     Navigator.of(context).pop();</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :                   },</span>
 <span id="L37"><span class="lineNum">      37</span>              :                   icon: const Icon(Icons.chevron_left_rounded),</span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaUNC">           0 :                   color: onPrimaryColor,</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC tlaBgGNC">           1 :                   color: onPrimaryColor,</span></span>
 <span id="L39"><span class="lineNum">      39</span>              :                 ),</span>
 <span id="L40"><span class="lineNum">      40</span>              :               ),</span>
 <span id="L41"><span class="lineNum">      41</span>              :             ),</span>
 <span id="L42"><span class="lineNum">      42</span>              :             const SizedBox(</span>
 <span id="L43"><span class="lineNum">      43</span>              :               height: 64,</span>
 <span id="L44"><span class="lineNum">      44</span>              :             ),</span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 :             ProfileImage(</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaUNC">           0 :               image: image,</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC">           0 :               avatar: avatar,</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           1 :             ProfileImage(</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           1 :               image: image,</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           1 :               avatar: avatar,</span></span>
 <span id="L48"><span class="lineNum">      48</span>              :             ),</span>
 <span id="L49"><span class="lineNum">      49</span>              :           ],</span>
 <span id="L50"><span class="lineNum">      50</span>              :         ),</span>
