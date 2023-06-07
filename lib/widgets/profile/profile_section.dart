@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nowingoogle/models/user_profile_ui_state.dart';
 import 'package:nowingoogle/widgets/profile/profile_bio.dart';
 import 'package:nowingoogle/widgets/profile/profile_subtitle.dart';
 import 'package:nowingoogle/widgets/profile/profile_title.dart';
@@ -21,7 +22,7 @@ class ProfileSection extends StatelessWidget {
   final String profession;
   final String? handle;
   final String gender;
-  final String userRole;
+  final UserRole userRole;
   final Color primaryColor;
   final Color onPrimaryColor;
   final bool isPOC;
@@ -31,7 +32,7 @@ class ProfileSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ProfileTitle(name: name, isAttendee: userRole == "Attendee"),
+        ProfileTitle(name: name, isAttendee: userRole == UserRole.Attendee),
         ProfileSubtitle(
           profession: profession,
           handle: handle,

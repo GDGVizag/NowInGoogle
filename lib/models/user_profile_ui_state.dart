@@ -1,5 +1,25 @@
 import 'package:flutter/material.dart';
 
+enum UserRole { Attendee, Volunteer, Speaker, Organizer }
+
+class ColorScheme {
+  final Color primaryColor;
+  final Color onPrimaryColor;
+  final Color primaryContainerColor;
+  final Color onPrimaryContainerColor;
+  const ColorScheme(this.primaryColor, this.onPrimaryColor,
+      this.primaryContainerColor, this.onPrimaryContainerColor);
+}
+
+var attendeeColorScheme = const ColorScheme(
+    Color(0xFFFBC004), Color(0xFF202023), Color(0xFFFFF5D3), Color(0xFFC39500));
+var volunteerColorScheme = const ColorScheme(
+    Color(0xFF4285F4), Colors.white, Color(0xFFD3E4FF), Color(0xFF4285F4));
+var organizerColorScheme = const ColorScheme(
+    Color(0xFFea4335), Colors.white, Color(0xFFFFE3E0), Color(0xFFea4335));
+var speakerColorScheme = const ColorScheme(
+    Color(0xFF34A853), Colors.white, Color(0xFFD2FFDE), Color(0xFF34A853));
+
 class UserProfileUiState {
   final String name;
   final String image;
@@ -9,155 +29,42 @@ class UserProfileUiState {
   final String? bio;
 
   final String email;
-  final String phone;
+  final String? phoneNumber;
   final String organization;
   final String place;
 
-  final String userRole;
-  final Color primaryColor;
-  final Color onPrimaryColor;
-  final Color primaryContainerColor;
-  final Color onPrimaryContainerColor;
-  const UserProfileUiState(
-      this.name,
-      this.image,
-      this.profession,
-      this.handle,
-      this.gender,
-      this.userRole,
-      this.bio,
-      this.email,
-      this.phone,
-      this.organization,
-      this.place,
-      this.primaryColor,
-      this.onPrimaryColor,
-      this.primaryContainerColor,
-      this.onPrimaryContainerColor);
-}
+  final UserRole userRole;
 
-class AttendeeProfileUiState extends UserProfileUiState {
-  const AttendeeProfileUiState(
-      {required String name,
-      required String image,
-      required String profession,
-      String? handle,
-      required String gender,
-      String? bio,
-      required String email,
-      required String phoneNumber,
-      required String organization,
-      required String place})
-      : super(
-            name,
-            image,
-            profession,
-            handle,
-            gender,
-            "Attendee",
-            bio,
-            email,
-            phoneNumber,
-            organization,
-            place,
-            const Color(0xFFFBC004),
-            const Color(0xFF202023),
-            const Color(0xFFFFF5D3),
-            const Color(0xFFC39500));
-}
+  final bool? isPOC;
+  final String? talkTitle;
+  final int? talkTime;
 
-class VolunteerProfileUiState extends UserProfileUiState {
-  final bool isPOC;
-  const VolunteerProfileUiState(
-      {required String name,
-      required String image,
-      required String profession,
-      String? handle,
-      required String gender,
-      String? bio,
-      required this.isPOC,
-      required String email,
-      required String phoneNumber,
-      required String organization,
-      required String place})
-      : super(
-            name,
-            image,
-            profession,
-            handle,
-            gender,
-            "Volunteer",
-            bio,
-            email,
-            phoneNumber,
-            organization,
-            place,
-            const Color(0xFF4285F4),
-            Colors.white,
-            const Color(0xFFD3E4FF),
-            const Color(0xFF4285F4));
-}
-
-class OrganizerProfileUiState extends UserProfileUiState {
-  const OrganizerProfileUiState(
-      {required String name,
-      required String image,
-      required String profession,
-      String? handle,
-      required String gender,
-      String? bio,
-      required String email,
-      required String phoneNumber,
-      required String organization,
-      required String place})
-      : super(
-            name,
-            image,
-            profession,
-            handle,
-            gender,
-            "Organizer",
-            bio,
-            email,
-            phoneNumber,
-            organization,
-            place,
-            const Color(0xFFea4335),
-            Colors.white,
-            const Color(0xFFFFE3E0),
-            const Color(0xFFea4335));
-}
-
-class SpeakerProfileUiState extends UserProfileUiState {
-  final String talkTitle;
-  final int talkTime;
-  const SpeakerProfileUiState(
-      {required String name,
-      required String image,
-      required String profession,
-      String? handle,
-      required String gender,
-      String? bio,
-      required this.talkTitle,
-      required this.talkTime,
-      required String email,
-      required String phoneNumber,
-      required String organization,
-      required String place})
-      : super(
-            name,
-            image,
-            profession,
-            handle,
-            gender,
-            "Speaker",
-            bio,
-            email,
-            phoneNumber,
-            organization,
-            place,
-            const Color(0xFF34A853),
-            Colors.white,
-            const Color(0xFFD2FFDE),
-            const Color(0xFF34A853));
+  const UserProfileUiState({
+    required this.userRole,
+    required this.name,
+    required this.image,
+    required this.profession,
+    this.handle,
+    required this.gender,
+    this.bio,
+    required this.email,
+    this.phoneNumber,
+    required this.organization,
+    required this.place,
+    this.isPOC,
+    this.talkTitle,
+    this.talkTime,
+  });
+  ColorScheme getColorScheme() {
+    switch (userRole) {
+      case UserRole.Volunteer:
+        return volunteerColorScheme;
+      case UserRole.Speaker:
+        return speakerColorScheme;
+      case UserRole.Organizer:
+        return organizerColorScheme;
+      default:
+        return attendeeColorScheme;
+    }
+  }
 }

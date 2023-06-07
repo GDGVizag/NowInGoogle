@@ -25,7 +25,7 @@ class ProfileSubtitle extends StatelessWidget {
         Opacity(
           opacity: 0.5,
           child: Text(
-            gender == "male" ? "• he/him" : "• she/her",
+            gender == "male" ? "• he/him" : "• she/her",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium

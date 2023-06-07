@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:nowingoogle/widgets/functions.dart';
+import 'package:nowingoogle/utils/number_util.dart';
 
 class CountdownTimer extends StatefulWidget {
   final Color primaryColor;
@@ -33,7 +33,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) {
-    updateTimeStamp();
+    //updateTimeStamp();
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(

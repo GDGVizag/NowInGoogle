@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nowingoogle/utils/constants.dart';
 
 class RegisterSnippet extends StatelessWidget {
-  const RegisterSnippet({super.key});
+  final bool isUserSignedIn;
+  const RegisterSnippet({super.key, required this.isUserSignedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +36,8 @@ class RegisterSnippet extends StatelessWidget {
             ),
             FilledButton(
                 onPressed: () {},
-                child: const Text(
-                  'Register Now',
+                child: Text(
+                  isUserSignedIn ? 'Register Now' : "Sign in",
                 )),
           ],
         ),

@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov.info - lib/models/lib/models/user_profile_ui_state.dart</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">lib/models/lib/models</a> - user_profile_ui_state.dart<span style="font-size: 80%;"> (source / <a href="user_profile_ui_state.dart.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">15</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2023-06-07 19:32:21</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : import 'package:flutter/material.dart';</span>
+<span id="L2"><span class="lineNum">       2</span>              : </span>
+<span id="L3"><span class="lineNum">       3</span>              : enum UserRole { Attendee, Volunteer, Speaker, Organizer }</span>
+<span id="L4"><span class="lineNum">       4</span>              : </span>
+<span id="L5"><span class="lineNum">       5</span>              : class ColorScheme {</span>
+<span id="L6"><span class="lineNum">       6</span>              :   final Color primaryColor;</span>
+<span id="L7"><span class="lineNum">       7</span>              :   final Color onPrimaryColor;</span>
+<span id="L8"><span class="lineNum">       8</span>              :   final Color primaryContainerColor;</span>
+<span id="L9"><span class="lineNum">       9</span>              :   final Color onPrimaryContainerColor;</span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC tlaBgGNC">           2 :   const ColorScheme(this.primaryColor, this.onPrimaryColor,</span></span>
+<span id="L11"><span class="lineNum">      11</span>              :       this.primaryContainerColor, this.onPrimaryContainerColor);</span>
+<span id="L12"><span class="lineNum">      12</span>              : }</span>
+<span id="L13"><span class="lineNum">      13</span>              : </span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">           4 : var attendeeColorScheme = const ColorScheme(</span></span>
+<span id="L15"><span class="lineNum">      15</span>              :     Color(0xFFFBC004), Color(0xFF202023), Color(0xFFFFF5D3), Color(0xFFC39500));</span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">           2 : var volunteerColorScheme = const ColorScheme(</span></span>
+<span id="L17"><span class="lineNum">      17</span>              :     Color(0xFF4285F4), Colors.white, Color(0xFFD3E4FF), Color(0xFF4285F4));</span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           2 : var organizerColorScheme = const ColorScheme(</span></span>
+<span id="L19"><span class="lineNum">      19</span>              :     Color(0xFFea4335), Colors.white, Color(0xFFFFE3E0), Color(0xFFea4335));</span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           2 : var speakerColorScheme = const ColorScheme(</span></span>
+<span id="L21"><span class="lineNum">      21</span>              :     Color(0xFF34A853), Colors.white, Color(0xFFD2FFDE), Color(0xFF34A853));</span>
+<span id="L22"><span class="lineNum">      22</span>              : </span>
+<span id="L23"><span class="lineNum">      23</span>              : class UserProfileUiState {</span>
+<span id="L24"><span class="lineNum">      24</span>              :   final String name;</span>
+<span id="L25"><span class="lineNum">      25</span>              :   final String image;</span>
+<span id="L26"><span class="lineNum">      26</span>              :   final String profession;</span>
+<span id="L27"><span class="lineNum">      27</span>              :   final String? handle;</span>
+<span id="L28"><span class="lineNum">      28</span>              :   final String gender;</span>
+<span id="L29"><span class="lineNum">      29</span>              :   final String? bio;</span>
+<span id="L30"><span class="lineNum">      30</span>              : </span>
+<span id="L31"><span class="lineNum">      31</span>              :   final String email;</span>
+<span id="L32"><span class="lineNum">      32</span>              :   final String? phoneNumber;</span>
+<span id="L33"><span class="lineNum">      33</span>              :   final String organization;</span>
+<span id="L34"><span class="lineNum">      34</span>              :   final String place;</span>
+<span id="L35"><span class="lineNum">      35</span>              : </span>
+<span id="L36"><span class="lineNum">      36</span>              :   final UserRole userRole;</span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span>              :   final bool? isPOC;</span>
+<span id="L39"><span class="lineNum">      39</span>              :   final String? talkTitle;</span>
+<span id="L40"><span class="lineNum">      40</span>              :   final int? talkTime;</span>
+<span id="L41"><span class="lineNum">      41</span>              : </span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           1 :   const UserProfileUiState({</span></span>
+<span id="L43"><span class="lineNum">      43</span>              :     required this.userRole,</span>
+<span id="L44"><span class="lineNum">      44</span>              :     required this.name,</span>
+<span id="L45"><span class="lineNum">      45</span>              :     required this.image,</span>
+<span id="L46"><span class="lineNum">      46</span>              :     required this.profession,</span>
+<span id="L47"><span class="lineNum">      47</span>              :     this.handle,</span>
+<span id="L48"><span class="lineNum">      48</span>              :     required this.gender,</span>
+<span id="L49"><span class="lineNum">      49</span>              :     this.bio,</span>
+<span id="L50"><span class="lineNum">      50</span>              :     required this.email,</span>
+<span id="L51"><span class="lineNum">      51</span>              :     this.phoneNumber,</span>
+<span id="L52"><span class="lineNum">      52</span>              :     required this.organization,</span>
+<span id="L53"><span class="lineNum">      53</span>              :     required this.place,</span>
+<span id="L54"><span class="lineNum">      54</span>              :     this.isPOC,</span>
+<span id="L55"><span class="lineNum">      55</span>              :     this.talkTitle,</span>
+<span id="L56"><span class="lineNum">      56</span>              :     this.talkTime,</span>
+<span id="L57"><span class="lineNum">      57</span>              :   });</span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           1 :   ColorScheme getColorScheme() {</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           1 :     switch (userRole) {</span></span>
+<span id="L60"><span class="lineNum">      60</span> <span class="tlaGNC">           1 :       case UserRole.Volunteer:</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           1 :         return volunteerColorScheme;</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">           1 :       case UserRole.Speaker:</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           1 :         return speakerColorScheme;</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           1 :       case UserRole.Organizer:</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           1 :         return organizerColorScheme;</span></span>
+<span id="L66"><span class="lineNum">      66</span>              :       default:</span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           1 :         return attendeeColorScheme;</span></span>
+<span id="L68"><span class="lineNum">      68</span>              :     }</span>
+<span id="L69"><span class="lineNum">      69</span>              :   }</span>
+<span id="L70"><span class="lineNum">      70</span>              : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

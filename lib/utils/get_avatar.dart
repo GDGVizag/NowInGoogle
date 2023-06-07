@@ -1,5 +1,7 @@
-String getAvatarUrl(String userRole) {
-  switch (userRole.toLowerCase()) {
+import 'package:nowingoogle/models/user_profile_ui_state.dart';
+
+String getAvatarUrl(UserRole userRole) {
+  switch (userRole.name.toLowerCase()) {
     case "volunteer":
       return "assets/avatar/blue.png";
     case "organizer":

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nowingoogle/models/user_profile_ui_state.dart';
 
 class ProfileUserRole extends StatelessWidget {
   const ProfileUserRole({
@@ -9,7 +10,7 @@ class ProfileUserRole extends StatelessWidget {
     required this.onPrimaryColor,
   });
 
-  final String userRole;
+  final UserRole userRole;
   final bool isPOC;
   final Color primaryColor;
   final Color onPrimaryColor;
@@ -30,7 +31,7 @@ class ProfileUserRole extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  userRole,
+                  userRole.name,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium

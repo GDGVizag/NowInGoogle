@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nowingoogle/models/user_profile_ui_state.dart';
 import 'package:nowingoogle/utils/capitalize.dart';
@@ -9,22 +10,23 @@ import 'package:nowingoogle/widgets/profile/profile_header.dart';
 import 'package:nowingoogle/widgets/profile/profile_section.dart';
 import 'package:nowingoogle/widgets/secondary_button.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfilePage extends StatefulWidget {
   final UserProfileUiState uiState;
-  const ProfileScreen({super.key, required this.uiState});
+  const ProfilePage({super.key, required this.uiState});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfilePageState extends State<ProfilePage> {
   var isEditing = false;
   @override
   Widget build(BuildContext context) {
     var nameController = TextEditingController(text: widget.uiState.name);
     var handleController = TextEditingController(text: widget.uiState.handle);
     var bioController = TextEditingController(text: widget.uiState.bio);
-    var phoneController = TextEditingController(text: widget.uiState.phone);
+    var phoneController =
+        TextEditingController(text: widget.uiState.phoneNumber);
     var emailController = TextEditingController(text: widget.uiState.email);
     var organizationController =
         TextEditingController(text: widget.uiState.organization);
@@ -32,8 +34,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       floatingActionButton: !isEditing
           ? FloatingActionButton.extended(
-              backgroundColor: widget.uiState.primaryContainerColor,
-              foregroundColor: widget.uiState.onPrimaryContainerColor,
+              backgroundColor:
+                  widget.uiState.getColorScheme().primaryContainerColor,
+              foregroundColor:
+                  widget.uiState.getColorScheme().onPrimaryContainerColor,
               onPressed: () {
                 setState(() {
                   isEditing = true;
@@ -54,8 +58,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ProfileHeader(
                     image: widget.uiState.image,
                     avatar: getAvatarUrl(widget.uiState.userRole),
-                    primaryColor: widget.uiState.primaryColor,
-                    onPrimaryColor: widget.uiState.onPrimaryColor,
+                    primaryColor: widget.uiState.getColorScheme().primaryColor,
+                    onPrimaryColor:
+                        widget.uiState.getColorScheme().onPrimaryColor,
                   ),
                   !isEditing
                       ? Padding(
@@ -68,57 +73,76 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 handle: widget.uiState.handle,
                                 gender: widget.uiState.gender,
                                 userRole: widget.uiState.userRole,
-                                isPOC: widget.uiState is VolunteerProfileUiState
-                                    ? (widget.uiState
-                                            as VolunteerProfileUiState)
-                                        .isPOC
-                                    : false,
+                                isPOC: widget.uiState.isPOC ?? false,
                                 bio: widget.uiState.bio,
-                                primaryColor: widget.uiState.primaryColor,
-                                onPrimaryColor: widget.uiState.onPrimaryColor,
+                                primaryColor: widget.uiState
+                                    .getColorScheme()
+                                    .primaryColor,
+                                onPrimaryColor: widget.uiState
+                                    .getColorScheme()
+                                    .onPrimaryColor,
                               ),
                               const SizedBox(
                                 height: 24,
                               ),
-                              if (widget.uiState.userRole == "Speaker")
+                              if (widget.uiState.userRole == UserRole.Speaker)
                                 CustomListView(list: {
-                                  "talk_name":
-                                      (widget.uiState as SpeakerProfileUiState)
-                                          .talkTitle,
+                                  "talk_name": widget.uiState.talkTitle,
                                   "talk_duration":
-                                      "${(widget.uiState as SpeakerProfileUiState).talkTime} minutes",
+                                      "${widget.uiState.talkTime} minutes",
                                 }),
                               CustomListView(
-                                list: {
-                                  "email": widget.uiState.email,
-                                  "phone_number":
-                                      "+91 ${widget.uiState.phone.toString().substring(0, 5)} ${widget.uiState.phone.toString().substring(5, 10)}",
-                                  "organization": widget.uiState.organization,
-                                  "place": widget.uiState.place,
-                                },
+                                list: widget.uiState.phoneNumber != null
+                                    ? {
+                                        "email": widget.uiState.email,
+                                        "phone_number":
+                                            "+91 ${widget.uiState.phoneNumber.toString().substring(0, 5)} ${widget.uiState.phoneNumber.toString().substring(5, 10)}",
+                                        "organization":
+                                            widget.uiState.organization,
+                                        "place": widget.uiState.place,
+                                      }
+                                    : {
+                                        "email": widget.uiState.email,
+                                        "organization":
+                                            widget.uiState.organization,
+                                        "place": widget.uiState.place,
+                                      },
                               ),
                               const SizedBox(
                                 height: 24,
                               ),
                               SecondaryButton(
                                 label: "Delete my data",
-                                primaryColor: widget.uiState.primaryColor,
-                                onPrimaryColor: widget.uiState.onPrimaryColor,
+                                primaryColor: widget.uiState
+                                    .getColorScheme()
+                                    .primaryColor,
+                                onPrimaryColor: widget.uiState
+                                    .getColorScheme()
+                                    .onPrimaryColor,
                               ),
                               const SizedBox(
                                 height: 16,
                               ),
                               PrimaryButton(
                                 label: "Log out",
-                                onPressed: () {},
-                                primaryColor: widget.uiState.primaryColor,
-                                onPrimaryColor: widget.uiState.onPrimaryColor,
+                                onPressed: () {
+                                  FirebaseAuth.instance.signOut();
+                                  Navigator.of(context).pop();
+                                },
+                                primaryColor: widget.uiState
+                                    .getColorScheme()
+                                    .primaryColor,
+                                onPrimaryColor: widget.uiState
+                                    .getColorScheme()
+                                    .onPrimaryColor,
                               ),
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 24.0),
                                 child: ProfileFooter(
-                                  primaryColor: widget.uiState.primaryColor,
+                                  primaryColor: widget.uiState
+                                      .getColorScheme()
+                                      .primaryColor,
                                 ),
                               ),
                             ],
@@ -128,17 +152,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           padding: const EdgeInsets.all(24.0),
                           child: Theme(
                             data: ThemeData.from(
-                                colorScheme: Theme.of(context)
-                                    .colorScheme
-                                    .copyWith(
-                                        primary: widget
-                                            .uiState.onPrimaryContainerColor,
-                                        surface: widget
-                                            .uiState.primaryContainerColor,
-                                        secondaryContainer:
-                                            widget.uiState.primaryColor,
-                                        onSecondaryContainer:
-                                            widget.uiState.onPrimaryColor),
+                                colorScheme:
+                                    Theme.of(context)
+                                        .colorScheme
+                                        .copyWith(
+                                            primary: widget.uiState
+                                                .getColorScheme()
+                                                .onPrimaryContainerColor,
+                                            surface: widget.uiState
+                                                .getColorScheme()
+                                                .primaryContainerColor,
+                                            secondaryContainer: widget.uiState
+                                                .getColorScheme()
+                                                .primaryColor,
+                                            onSecondaryContainer: widget.uiState
+                                                .getColorScheme()
+                                                .onPrimaryColor),
                                 textTheme: Theme.of(context).textTheme,
                                 useMaterial3: true),
                             child: Column(
@@ -150,8 +179,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   controller: nameController,
                                   decoration: InputDecoration(
                                     filled: true,
-                                    fillColor:
-                                        widget.uiState.primaryContainerColor,
+                                    fillColor: widget.uiState
+                                        .getColorScheme()
+                                        .primaryContainerColor,
                                     label: const Text("Name"),
                                     prefixIcon: const Icon(
                                       Icons.person,
@@ -162,6 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             (states) => states.contains(
                                                     MaterialState.focused)
                                                 ? widget.uiState
+                                                    .getColorScheme()
                                                     .onPrimaryContainerColor
                                                 : kDefaultIconDarkColor),
                                   ),
@@ -176,8 +207,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         controller: handleController,
                                         decoration: InputDecoration(
                                           filled: true,
-                                          fillColor: widget
-                                              .uiState.primaryContainerColor,
+                                          fillColor: widget.uiState
+                                              .getColorScheme()
+                                              .primaryContainerColor,
                                           label: const Text("Handle"),
                                           prefixIcon: const Icon(
                                             Icons.alternate_email,
@@ -201,16 +233,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           DropdownMenuEntry(
                                               value: "professional",
                                               label: "Professional"),
-                                          DropdownMenuEntry(
-                                              value: "gdg", label: "GDG/WTM")
                                         ],
-                                        initialSelection:
-                                            widget.uiState.profession,
-                                        leadingIcon: Icon(
+                                        initialSelection: widget
+                                            .uiState.profession
+                                            .toLowerCase(),
+                                        leadingIcon: const Icon(
                                           Icons.work,
                                           size: 18,
                                         ),
-                                        label: Text("Career"),
+                                        label: const Text("Career"),
                                       ),
                                     ),
                                   ],
@@ -317,14 +348,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     });
                                   },
                                   suffix: const Icon(Icons.save),
-                                  primaryColor: widget.uiState.primaryColor,
-                                  onPrimaryColor: widget.uiState.onPrimaryColor,
+                                  primaryColor: widget.uiState
+                                      .getColorScheme()
+                                      .primaryColor,
+                                  onPrimaryColor: widget.uiState
+                                      .getColorScheme()
+                                      .onPrimaryColor,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 24.0),
                                   child: ProfileFooter(
-                                    primaryColor: widget.uiState.primaryColor,
+                                    primaryColor: widget.uiState
+                                        .getColorScheme()
+                                        .primaryColor,
                                   ),
                                 ),
                               ],
