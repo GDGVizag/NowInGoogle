@@ -66,20 +66,31 @@ class HomeViewModel with ChangeNotifier {
     pincodeErrorText = null;
     notifyListeners();
     int pincode = int.parse(pincodeController.text);
-    var pincodeApiResult =
-        await get(Uri.parse("https://api.postalpincode.in/pincode/$pincode"));
+    try {
+      var pincodeApiResult =
+          await get(Uri.parse("https://api.postalpincode.in/pincode/$pincode"));
 
-    Map<String, dynamic> addressJson = jsonDecode(pincodeApiResult.body)[0];
-    if (addressJson["Status"] == "Success") {
-      var addressEntityJson = addressJson["PostOffice"].firstWhere(
-          (addressEntity) => addressEntity["Division"] != "",
-          orElse: () => addressJson["PostOffice"][0]);
-      var city = addressEntityJson["Division"];
-      var state = addressEntityJson["State"];
-      return {"city": city, "state": state};
-    } else {
-      print("error, $addressJson");
-      pincodeErrorText = "Oops, incorrect pincode! Please check again.";
+      Map<String, dynamic> addressJson = jsonDecode(pincodeApiResult.body)[0];
+      if (addressJson["Status"] == "Success") {
+        var addressEntityJson = addressJson["PostOffice"].firstWhere(
+            (addressEntity) => addressEntity["Division"] != "",
+            orElse: () => addressJson["PostOffice"][0]);
+        var city = addressEntityJson["Division"];
+        var state = addressEntityJson["State"];
+        profileSheetState = ProfileBottomSheetState.LOADING;
+        notifyListeners();
+        return {"city": city, "state": state};
+      } else {
+        print("error, $addressJson");
+        profileSheetState = ProfileBottomSheetState.ERROR;
+        pincodeErrorText = "Oops, incorrect pincode! Please check again.";
+        notifyListeners();
+        return null;
+      }
+    } catch (e) {
+      profileSheetState = ProfileBottomSheetState.ERROR;
+      pincodeErrorText =
+          "Oops, we faced an issue: ${e.toString()}! Please check again.";
       notifyListeners();
       return null;
     }
@@ -108,7 +119,15 @@ class HomeViewModel with ChangeNotifier {
     await firestore
         .collection("user")
         .doc(firebaseAuth.currentUser?.uid)
-        .set(data);
+        .set(data)
+        .onError((error, stackTrace) {
+      profileSheetState = ProfileBottomSheetState.ERROR;
+      // pincodeErrorText =
+      //     "Oops, we faced an issue: ${error.toString()}! Please check again.";
+      //TODO show snackbar
+      notifyListeners();
+      return null;
+    });
     onProfileCreated();
   }
 }

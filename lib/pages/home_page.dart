@@ -23,18 +23,58 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var homeViewModel = HomeViewModel();
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
         actions: [
           InkWell(
             onTap: () async {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) =>
-                      ProfileBottomSheet(homeViewModel: homeViewModel),
-                  isDismissible: false,
-                  isScrollControlled: true);
+              if (FirebaseAuth.instance.currentUser == null) {
+                var authResult = await homeViewModel.signIn();
+                if (authResult?.additionalUserInfo?.isNewUser ?? true) {
+                  // ignore: use_build_context_synchronously
+                  showModalBottomSheet(
+                      useRootNavigator: true,
+                      isScrollControlled: true,
+                      isDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return ProfileBottomSheet(_formKey,
+                            homeViewModel: homeViewModel);
+                      });
+                }
+                setState(() {});
+              } else {
+                User? user = FirebaseAuth.instance.currentUser;
+                var doc = await FirebaseFirestore.instance
+                    .collection("user")
+                    .doc(FirebaseAuth.instance.currentUser?.uid)
+                    .get();
+                Navigator.of(context)
+                    .push(
+                      MaterialPageRoute(
+                        builder: (context) => ProfilePage(
+                          uiState: UserProfileUiState(
+                            userRole: UserRole.Attendee,
+                            name: user?.displayName ?? "User",
+                            image: user?.photoURL ??
+                                "https://github.com/ManasMalla.png",
+                            profession: doc.get("career"),
+                            gender: doc.get("gender"),
+                            handle: doc.data()?["handle"],
+                            email: user?.email ?? "",
+                            phoneNumber: doc.data()?["phoneNumber"],
+                            organization: doc.get("organization"),
+                            place:
+                                "${doc.get("address")["city"]}, ${doc.get("address")["state"]}",
+                            bio: doc.data()?["bio"],
+                          ),
+                        ),
+                      ),
+                    )
+                    .then((value) => setState(() {}));
+              }
             },
             child: FirebaseAuth.instance.currentUser == null
                 ? const Icon(Icons.account_circle_outlined)
@@ -50,6 +90,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             RegisterSnippet(
+              homeViewModel: homeViewModel,
               isUserSignedIn: FirebaseAuth.instance.currentUser != null,
             ),
             Image.asset(
@@ -94,12 +135,13 @@ class _HomePageState extends State<HomePage> {
 }
 
 class ProfileBottomSheet extends StatelessWidget {
-  ProfileBottomSheet({
+  ProfileBottomSheet(
+    this._formKey, {
     super.key,
     required this.homeViewModel,
   });
 
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey;
   final HomeViewModel homeViewModel;
 
   @override
@@ -109,49 +151,50 @@ class ProfileBottomSheet extends StatelessWidget {
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Wrap(
         children: [
-          StatefulBuilder(builder: (context, _) {
-            return BottomSheet(
-                onClosing: () {},
-                builder: (context) {
-                  return ListenableBuilder(
-                      listenable: homeViewModel,
-                      builder: (context, _) {
-                        return homeViewModel.profileSheetState ==
-                                ProfileBottomSheetState.LOADING
-                            ? Padding(
-                                padding: const EdgeInsets.all(24.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Hang on!",
+          BottomSheet(
+              onClosing: () {},
+              builder: (context) {
+                return ListenableBuilder(
+                    listenable: homeViewModel,
+                    builder: (context, _) {
+                      return homeViewModel.profileSheetState ==
+                              ProfileBottomSheetState.LOADING
+                          ? Padding(
+                              padding: const EdgeInsets.all(24.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Hang on!",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Text(
+                                      "We're almost there.\nJust give us a moment to create your profile!",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headlineMedium,
+                                          .bodyMedium,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: Text(
-                                        "We're almost there.\nJust give us a moment to create your profile!",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 12,
-                                    ),
-                                    Center(
-                                        child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 36.0),
-                                      child: CircularProgressIndicator(),
-                                    )),
-                                  ],
-                                ),
-                              )
-                            : Padding(
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Center(
+                                      child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 36.0),
+                                    child: CircularProgressIndicator(),
+                                  )),
+                                ],
+                              ),
+                            )
+                          : Form(
+                              key: _formKey,
+                              child: Padding(
                                 padding: const EdgeInsets.all(24.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,30 +311,26 @@ class ProfileBottomSheet extends StatelessWidget {
                                     const SizedBox(
                                       height: 16,
                                     ),
-                                    ListenableBuilder(
-                                        listenable: homeViewModel,
-                                        builder: (context, _) {
-                                          return TextFormField(
-                                            validator: (value) {
-                                              // setState(() {});
-                                              // return "Please enter a valid input";
-                                            },
-                                            controller:
-                                                homeViewModel.pincodeController,
-                                            keyboardType: TextInputType.number,
-                                            inputFormatters: [
-                                              FilteringTextInputFormatter
-                                                  .digitsOnly
-                                            ],
-                                            maxLength: 6,
-                                            decoration: InputDecoration(
-                                              filled: true,
-                                              label: const Text("Pincode"),
-                                              errorText: homeViewModel
-                                                  .pincodeErrorText,
-                                            ),
-                                          );
-                                        }),
+                                    TextFormField(
+                                      validator: (value) {
+                                        return (value?.isNotEmpty ?? false)
+                                            ? null
+                                            : "Please enter a valid input";
+                                      },
+                                      controller:
+                                          homeViewModel.pincodeController,
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
+                                      maxLength: 6,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        label: const Text("Pincode"),
+                                        errorText:
+                                            homeViewModel.pincodeErrorText,
+                                      ),
+                                    ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 24.0),
@@ -299,22 +338,27 @@ class ProfileBottomSheet extends StatelessWidget {
                                           width: double.infinity,
                                           child: FilledButton(
                                             onPressed: () {
-                                              _formKey.currentState?.validate();
-                                              // homeViewModel.createProfile(
-                                              //     FirebaseFirestore.instance,
-                                              //     FirebaseAuth.instance, () {
-                                              //   Navigator.of(context).pop();
-                                              // });
+                                              if (_formKey.currentState
+                                                      ?.validate() ??
+                                                  false) {
+                                                homeViewModel.createProfile(
+                                                    FirebaseFirestore.instance,
+                                                    FirebaseAuth.instance, () {
+                                                  Navigator.of(context).pop();
+                                                });
+                                              } else {
+                                                //TODO show snackbar with error
+                                              }
                                             },
                                             child: const Text("Save"),
                                           )),
                                     )
                                   ],
                                 ),
-                              );
-                      });
-                });
-          }),
+                              ),
+                            );
+                    });
+              }),
         ],
       ),
     );
