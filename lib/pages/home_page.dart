@@ -29,50 +29,12 @@ class _HomePageState extends State<HomePage> {
         actions: [
           InkWell(
             onTap: () async {
-              if (FirebaseAuth.instance.currentUser == null) {
-                var authResult = await homeViewModel.signIn();
-                if (authResult?.additionalUserInfo?.isNewUser ?? true) {
-                  // ignore: use_build_context_synchronously
-                  showModalBottomSheet(
-                      useRootNavigator: true,
-                      isScrollControlled: true,
-                      isDismissible: false,
-                      context: context,
-                      builder: (context) {
-                        return ProfileBottomSheet(homeViewModel: homeViewModel);
-                      });
-                }
-                setState(() {});
-              } else {
-                User? user = FirebaseAuth.instance.currentUser;
-                var doc = await FirebaseFirestore.instance
-                    .collection("user")
-                    .doc(FirebaseAuth.instance.currentUser?.uid)
-                    .get();
-                Navigator.of(context)
-                    .push(
-                      MaterialPageRoute(
-                        builder: (context) => ProfilePage(
-                          uiState: UserProfileUiState(
-                            userRole: UserRole.Attendee,
-                            name: user?.displayName ?? "User",
-                            image: user?.photoURL ??
-                                "https://github.com/ManasMalla.png",
-                            profession: doc.get("career"),
-                            gender: doc.get("gender"),
-                            handle: doc.data()?["handle"],
-                            email: user?.email ?? "",
-                            phoneNumber: doc.data()?["phoneNumber"],
-                            organization: doc.get("organization"),
-                            place:
-                                "${doc.get("address")["city"]}, ${doc.get("address")["state"]}",
-                            bio: doc.data()?["bio"],
-                          ),
-                        ),
-                      ),
-                    )
-                    .then((value) => setState(() {}));
-              }
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) =>
+                      ProfileBottomSheet(homeViewModel: homeViewModel),
+                  isDismissible: false,
+                  isScrollControlled: true);
             },
             child: FirebaseAuth.instance.currentUser == null
                 ? const Icon(Icons.account_circle_outlined)
@@ -132,11 +94,12 @@ class _HomePageState extends State<HomePage> {
 }
 
 class ProfileBottomSheet extends StatelessWidget {
-  const ProfileBottomSheet({
+  ProfileBottomSheet({
     super.key,
     required this.homeViewModel,
   });
 
+  final _formKey = GlobalKey<FormState>();
   final HomeViewModel homeViewModel;
 
   @override
@@ -150,144 +113,206 @@ class ProfileBottomSheet extends StatelessWidget {
             return BottomSheet(
                 onClosing: () {},
                 builder: (context) {
-                  return Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Profile",
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Text(
-                            "Help us know you better so that we can provide you with tailored experiences and opportunities. You can always update them from your profile.",
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Autocomplete(
-                          optionsBuilder: (textEditingValue) {
-                            if (textEditingValue.text.isEmpty) {
-                              return const Iterable<String>.empty();
-                            }
-                            return [
-                              "Student",
-                              "Intern",
-                              "Professional",
-                            ].where((element) => element
-                                .toLowerCase()
-                                .contains(textEditingValue.text.toLowerCase()));
-                          },
-                          fieldViewBuilder: (BuildContext context,
-                              TextEditingController textEditingController,
-                              FocusNode focusNode,
-                              VoidCallback onFieldSubmitted) {
-                            return TextFormField(
-                              textInputAction: TextInputAction.next,
-                              controller: textEditingController,
-                              focusNode: focusNode,
-                              onFieldSubmitted: (String value) {
-                                onFieldSubmitted();
-                              },
-                              onChanged: (_) {
-                                homeViewModel.careerController =
-                                    textEditingController;
-                              },
-                              validator: (String? value) {
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                labelText: 'Career',
-                                filled: true,
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Autocomplete(
-                          optionsBuilder: (textEditingValue) {
-                            if (textEditingValue.text.isEmpty) {
-                              return const Iterable<String>.empty();
-                            }
-                            return [
-                              "Gandhi Institute of Technology And Management (GITAM)",
-                              "Gayatri Vidya Parishad (GVP)",
-                              "Gayatri Vidya Parishad College for Engineering Women(GVPCEW)",
-                              "Ekfrazo Technologies",
-                              "Andhra University (AU)"
-                            ].where((element) => element
-                                .toLowerCase()
-                                .contains(textEditingValue.text.toLowerCase()));
-                          },
-                          fieldViewBuilder: (BuildContext context,
-                              TextEditingController textEditingController,
-                              FocusNode focusNode,
-                              VoidCallback onFieldSubmitted) {
-                            return TextFormField(
-                              textInputAction: TextInputAction.next,
-                              controller: textEditingController,
-                              focusNode: focusNode,
-                              onFieldSubmitted: (String value) {
-                                onFieldSubmitted();
-                              },
-                              onChanged: (_) {
-                                homeViewModel.organizationController =
-                                    textEditingController;
-                              },
-                              validator: (String? value) {
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                labelText: 'Organization',
-                                filled: true,
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        ListenableBuilder(
-                            listenable: homeViewModel,
-                            builder: (context, _) {
-                              return TextField(
-                                controller: homeViewModel.pincodeController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                maxLength: 6,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  label: const Text("Pincode"),
-                                  errorText: homeViewModel.pincodeErrorText,
+                  return ListenableBuilder(
+                      listenable: homeViewModel,
+                      builder: (context, _) {
+                        return homeViewModel.profileSheetState ==
+                                ProfileBottomSheetState.LOADING
+                            ? Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Hang on!",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: Text(
+                                        "We're almost there.\nJust give us a moment to create your profile!",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 12,
+                                    ),
+                                    Center(
+                                        child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 36.0),
+                                      child: CircularProgressIndicator(),
+                                    )),
+                                  ],
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Profile",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: Text(
+                                        "Help us know you better so that we can provide you with tailored experiences and opportunities. You can always update them from your profile.",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 12,
+                                    ),
+                                    Autocomplete(
+                                      optionsBuilder: (textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        }
+                                        return [
+                                          "Student",
+                                          "Intern",
+                                          "Professional",
+                                        ].where((element) => element
+                                            .toLowerCase()
+                                            .contains(textEditingValue.text
+                                                .toLowerCase()));
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController
+                                              textEditingController,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return TextFormField(
+                                          textInputAction: TextInputAction.next,
+                                          controller: textEditingController,
+                                          focusNode: focusNode,
+                                          onFieldSubmitted: (String value) {
+                                            onFieldSubmitted();
+                                          },
+                                          onChanged: (_) {
+                                            homeViewModel.careerController =
+                                                textEditingController;
+                                          },
+                                          validator: (String? value) {
+                                            return (value?.isNotEmpty ?? false)
+                                                ? null
+                                                : "Please enter a valid input";
+                                          },
+                                          decoration: const InputDecoration(
+                                            labelText: 'Career',
+                                            filled: true,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Autocomplete(
+                                      optionsBuilder: (textEditingValue) {
+                                        if (textEditingValue.text.isEmpty) {
+                                          return const Iterable<String>.empty();
+                                        }
+                                        return [
+                                          "Gandhi Institute of Technology And Management (GITAM)",
+                                          "Gayatri Vidya Parishad (GVP)",
+                                          "Gayatri Vidya Parishad College for Engineering Women(GVPCEW)",
+                                          "Ekfrazo Technologies",
+                                          "Andhra University (AU)"
+                                        ].where((element) => element
+                                            .toLowerCase()
+                                            .contains(textEditingValue.text
+                                                .toLowerCase()));
+                                      },
+                                      fieldViewBuilder: (BuildContext context,
+                                          TextEditingController
+                                              textEditingController,
+                                          FocusNode focusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return TextFormField(
+                                          textInputAction: TextInputAction.next,
+                                          controller: textEditingController,
+                                          focusNode: focusNode,
+                                          onFieldSubmitted: (String value) {
+                                            onFieldSubmitted();
+                                          },
+                                          onChanged: (_) {
+                                            homeViewModel
+                                                    .organizationController =
+                                                textEditingController;
+                                          },
+                                          validator: (String? value) {
+                                            return (value?.isNotEmpty ?? false)
+                                                ? null
+                                                : "Please enter a valid input";
+                                          },
+                                          decoration: const InputDecoration(
+                                            labelText: 'Organization',
+                                            filled: true,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    ListenableBuilder(
+                                        listenable: homeViewModel,
+                                        builder: (context, _) {
+                                          return TextFormField(
+                                            validator: (value) {
+                                              // setState(() {});
+                                              // return "Please enter a valid input";
+                                            },
+                                            controller:
+                                                homeViewModel.pincodeController,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly
+                                            ],
+                                            maxLength: 6,
+                                            decoration: InputDecoration(
+                                              filled: true,
+                                              label: const Text("Pincode"),
+                                              errorText: homeViewModel
+                                                  .pincodeErrorText,
+                                            ),
+                                          );
+                                        }),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 24.0),
+                                      child: SizedBox(
+                                          width: double.infinity,
+                                          child: FilledButton(
+                                            onPressed: () {
+                                              _formKey.currentState?.validate();
+                                              // homeViewModel.createProfile(
+                                              //     FirebaseFirestore.instance,
+                                              //     FirebaseAuth.instance, () {
+                                              //   Navigator.of(context).pop();
+                                              // });
+                                            },
+                                            child: const Text("Save"),
+                                          )),
+                                    )
+                                  ],
                                 ),
                               );
-                            }),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 24.0),
-                          child: SizedBox(
-                              width: double.infinity,
-                              child: FilledButton(
-                                onPressed: () {
-                                  homeViewModel.createProfile(
-                                      FirebaseFirestore.instance,
-                                      FirebaseAuth.instance, () {
-                                    Navigator.of(context).pop();
-                                  });
-                                },
-                                child: const Text("Save"),
-                              )),
-                        )
-                      ],
-                    ),
-                  );
+                      });
                 });
           }),
         ],
