@@ -1,0 +1,4 @@
+class FirebaseAuthUseCase{
+
+  const FirebaseAuthUseCase({});
+}
