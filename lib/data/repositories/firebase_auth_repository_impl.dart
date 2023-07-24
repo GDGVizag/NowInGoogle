@@ -1,11 +1,7 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
 import 'package:nowingoogle/data/failure.dart';
-
 import '../../domain/repositories/firebase_auth_repository.dart';
 
 class FirebaseAuthRepositoryImpl implements FirebaseAuthRepository {
