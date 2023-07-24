@@ -1,15 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:nowingoogle/data/failure.dart';
-import 'package:nowingoogle/data/models/user_class.dart';
 
-abstract class FirestoreObjectModel<P, Q> {
-  Either<Failure, P> getModelFromDocumentSnapshot(
-      DocumentSnapshot documentSnapshot);
-  Map<String, dynamic> toJson(Q data);
-  Q toEntity(P model);
-}
+import '../../failure.dart';
+import '../../../domain/entities/user_class.dart';
+import '../user_model.dart';
+import 'firestore_object_model.dart';
 
 class UserFirestoreModel implements FirestoreObjectModel<UserModel, User> {
   @override

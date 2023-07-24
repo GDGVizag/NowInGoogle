@@ -18,11 +18,11 @@ class FirestoreUsecase<P> {
     return firestoreRepository.getData(documentId);
   }
 
-  Future<Either<Failure, bool>> putData(P data, String? documentId) {
+  Future<Either<Failure, void>> putData(P data, String? documentId) {
     return firestoreRepository.putData(data, documentId: documentId);
   }
 
-  Future<Either<Failure, bool>> updateData(String documentId, P data) {
+  Future<Either<Failure, void>> updateData(String documentId, P data) {
     return firestoreRepository.updateData(documentId, data);
   }
 }
