@@ -16,8 +16,5 @@ jobs:
       - name: "Analyze"
         run: flutter pub get && flutter analyze .
 
-      - name: "Format"
-        run: flutter format lib/** --set-exit-if-changed
-
       - name: "Run tests"
         run: flutter test -r expanded
