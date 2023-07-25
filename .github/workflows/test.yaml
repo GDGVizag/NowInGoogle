@@ -17,4 +17,4 @@ jobs:
         run: flutter pub get && flutter analyze .
 
       - name: "Run tests"
-        run: flutter test
+        run: flutter test -r expanded
