@@ -11,12 +11,12 @@ class User extends Equatable {
   final String place;
   final String career;
   final String organization;
+  final String avatar;
   final String bio;
   final List<String> interests;
   final List<String> blogs;
   final List<String> posts;
   final List<String> events;
-  final List<String> followers;
   final List<String> following;
   final bool verified;
   final int strikes;
@@ -33,12 +33,12 @@ class User extends Equatable {
     required this.place,
     required this.career,
     required this.organization,
+    required this.avatar,
     required this.bio,
     required this.interests,
     required this.blogs,
     required this.posts,
     required this.events,
-    required this.followers,
     required this.following,
     required this.verified,
     required this.strikes,

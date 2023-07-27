@@ -13,12 +13,12 @@ class UserModel extends Equatable {
   final String place;
   final String career;
   final String organization;
+  final String avatar;
   final String bio;
   final List<String> interests;
   final List<String> blogs;
   final List<String> posts;
   final List<String> events;
-  final List<String> followers;
   final List<String> following;
   final bool verified;
   final int strikes;
@@ -35,12 +35,12 @@ class UserModel extends Equatable {
     required this.place,
     required this.career,
     required this.organization,
+    required this.avatar,
     required this.bio,
     required this.interests,
     required this.blogs,
     required this.posts,
     required this.events,
-    required this.followers,
     required this.following,
     required this.verified,
     required this.strikes,
@@ -63,14 +63,12 @@ class UserModel extends Equatable {
           place: snapshot.get("place"),
           career: snapshot.get("career"),
           organization: snapshot.get("organization"),
+          avatar: snapshot.get('avatar'),
           bio: snapshot.get("bio"),
           interests: snapshot.get("interests"),
-          //How to do we include blogs
           blogs: snapshot.get("blogs"),
-          //How to do we include posts
           posts: snapshot.get("posts"),
           events: snapshot.get("events"),
-          followers: snapshot.get("followers"),
           following: snapshot.get("following"),
           verified: snapshot.get("verified"),
           strikes: snapshot.get("strikes"),
@@ -91,12 +89,12 @@ class UserModel extends Equatable {
       place: place,
       career: career,
       organization: organization,
+      avatar: avatar,
       bio: bio,
       interests: interests,
       blogs: blogs,
       posts: posts,
       events: events,
-      followers: followers,
       following: following,
       verified: verified,
       strikes: strikes,
