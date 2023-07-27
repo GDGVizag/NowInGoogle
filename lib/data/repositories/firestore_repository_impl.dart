@@ -38,7 +38,11 @@ class FirestoreRepositoryImpl<P, Q> implements FirestoreRepository<Q> {
       await firestore
           .collection(CollectionUtils.getCollectionPath(collection))
           .doc(documentId)
-          .set(objectModel.toJson(data));
+          .set(
+            objectModel.toJson(
+              objectModel.fromEntity(data),
+            ),
+          );
       return const Right(null);
     } on SocketException {
       return const Left(Failure(message: 'Socket Exception'));
@@ -48,7 +52,7 @@ class FirestoreRepositoryImpl<P, Q> implements FirestoreRepository<Q> {
   }
 
   @override
-  Future<Either<Failure, void>> updateData(String documentId, data) {
+  Future<Either<Failure, void>> updateData(String documentId, Q data) {
     // TODO: implement updateData
     throw UnimplementedError();
   }
