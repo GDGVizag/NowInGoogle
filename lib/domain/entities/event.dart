@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Event extends Equatable {
   final String uid;
@@ -7,8 +8,8 @@ class Event extends Equatable {
   final String status; // Offline/ Online Event
   final String certificate;
   final int date;
-  final double? latitude; //used to add [Navigate to Venue]
-  final double? longitude; //used to add [Navigate to Venue]
+  final LatLng?
+      location; //used to add [Navigate to Venue] //used to add [Navigate to Venue]
   final List<String> perks;
   final bool registrationsOpen;
   final String?
@@ -21,8 +22,7 @@ class Event extends Equatable {
       required this.status,
       required this.certificate,
       required this.date,
-      required this.latitude,
-      required this.longitude,
+      required this.location,
       required this.perks,
       required this.registrationsOpen,
       this.message});
