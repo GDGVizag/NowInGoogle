@@ -41,6 +41,7 @@ class UserFirestoreModel implements FirestoreObjectModel<UserModel, User> {
       blogs: entity.blogs,
       posts: entity.posts,
       events: entity.events,
+      followers: entity.followers,
       following: entity.following,
       verified: entity.verified,
       strikes: entity.strikes,

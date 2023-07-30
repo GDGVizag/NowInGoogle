@@ -48,6 +48,7 @@ dependencies:
   url_launcher: ^6.1.11
   dartz: ^0.10.1
   equatable: ^2.0.5
+  fake_cloud_firestore: ^2.4.1+1
 
 dev_dependencies:
   flutter_test:

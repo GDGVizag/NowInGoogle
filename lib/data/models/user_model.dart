@@ -19,6 +19,7 @@ class UserModel extends Equatable {
   final List<String> blogs;
   final List<String> posts;
   final List<String> events;
+  final List<String> followers;
   final List<String> following;
   final bool verified;
   final int strikes;
@@ -41,6 +42,7 @@ class UserModel extends Equatable {
     required this.blogs,
     required this.posts,
     required this.events,
+    required this.followers,
     required this.following,
     required this.verified,
     required this.strikes,
@@ -70,6 +72,8 @@ class UserModel extends Equatable {
           posts: snapshot.get("posts"),
           events: snapshot.get("events"),
           following: snapshot.get("following"),
+          //TODO Change the implementation
+          followers: snapshot.get("following"),
           verified: snapshot.get("verified"),
           strikes: snapshot.get("strikes"),
           blacklisted: snapshot.get("blacklisted"));
@@ -95,6 +99,7 @@ class UserModel extends Equatable {
       blogs: blogs,
       posts: posts,
       events: events,
+      followers: followers,
       following: following,
       verified: verified,
       strikes: strikes,
