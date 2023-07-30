@@ -7,8 +7,8 @@ class Event extends Equatable {
   final String status; // Offline/ Online Event
   final String certificate;
   final int date;
-  final String latitude; //used to add [Navigate to Venue]
-  final String longitude; //used to add [Navigate to Venue]
+  final double? latitude; //used to add [Navigate to Venue]
+  final double? longitude; //used to add [Navigate to Venue]
   final List<String> perks;
   final bool registrationsOpen;
   final String?

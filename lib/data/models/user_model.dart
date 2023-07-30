@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nowingoogle/domain/entities/user.dart';
 
+import '../../domain/enums/social_platforms.dart';
+
 class UserModel extends Equatable {
   final String firstName;
   final String lastName;
@@ -15,6 +17,7 @@ class UserModel extends Equatable {
   final String organization;
   final String avatar;
   final String bio;
+  final Map<SocialPlatform, String> handles;
   final List<String> interests;
   final List<String> blogs;
   final List<String> posts;
@@ -38,6 +41,7 @@ class UserModel extends Equatable {
     required this.organization,
     required this.avatar,
     required this.bio,
+    required this.handles,
     required this.interests,
     required this.blogs,
     required this.posts,
@@ -67,6 +71,7 @@ class UserModel extends Equatable {
           organization: snapshot.get("organization"),
           avatar: snapshot.get('avatar'),
           bio: snapshot.get("bio"),
+          handles: snapshot.get("handles"),
           interests: snapshot.get("interests"),
           blogs: snapshot.get("blogs"),
           posts: snapshot.get("posts"),
@@ -95,6 +100,7 @@ class UserModel extends Equatable {
       organization: organization,
       avatar: avatar,
       bio: bio,
+      handles: handles,
       interests: interests,
       blogs: blogs,
       posts: posts,
