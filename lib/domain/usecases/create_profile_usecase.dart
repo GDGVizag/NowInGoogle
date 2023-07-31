@@ -22,7 +22,7 @@ class CreateProfileUseCase {
     required String organization,
   }) async {
     final cityResult = await getPlaceUseCase.getAddressFromPincode(pincode);
-    cityResult.fold((failure) => Left(failure), (city) async {
+    return cityResult.fold((failure) => Left(failure), (city) async {
       UserModel userModel = UserModel(
           firstName: firebaseUser.displayName!.split(' ').first,
           lastName: firebaseUser.displayName!.split(' ').length > 1
