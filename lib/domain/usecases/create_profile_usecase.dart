@@ -17,28 +17,28 @@ class CreateProfileUseCase {
     User firebaseUser, {
     required String username,
     required String gender,
-    required String pincode,
+    required int pincode,
     required String career,
     required String organization,
   }) async {
-    String? place =
-        (await getPlaceUseCase.getAddressFromPincode(pincode))!['city'];
+    final cityResult = await getPlaceUseCase.getAddressFromPincode(pincode);
+    cityResult.fold((failure) => Left(failure), (city) async {
+      UserModel userModel = UserModel(
+          firstName: firebaseUser.displayName!.split(' ').first,
+          lastName: firebaseUser.displayName!.split(' ').length > 1
+              ? firebaseUser.displayName!.split(' ').last
+              : '',
+          username: username,
+          email: firebaseUser.email!,
+          gender: gender,
+          place: city,
+          career: career,
+          organization: organization);
 
-    UserModel userModel = UserModel(
-        firstName: firebaseUser.displayName!.split(' ').first,
-        lastName: firebaseUser.displayName!.split(' ').length > 1
-            ? firebaseUser.displayName!.split(' ').last
-            : '',
-        username: username,
-        email: firebaseUser.email!,
-        gender: gender,
-        place: place ?? 'India',
-        career: career,
-        organization: organization);
-
-    return await firestoreUsecase.putData(
-      userModel.toJson(),
-      firebaseUser.uid,
-    );
+      return await firestoreUsecase.putData(
+        userModel.toJson(),
+        firebaseUser.uid,
+      );
+    });
   }
 }
