@@ -15,10 +15,11 @@ class FirestoreRepositoryImpl<P, Q> implements FirestoreRepository<Q> {
   final FirestoreObjectModel<P, Q> objectModel;
   final FirebaseFirestore firestore;
   final Collection collection;
-  const FirestoreRepositoryImpl(
-      {required this.firestore,
-      required this.collection,
-      required this.objectModel});
+  const FirestoreRepositoryImpl({
+    required this.firestore,
+    required this.collection,
+    required this.objectModel,
+  });
   @override
   Future<Either<Failure, Q>> getData(String documentId) async {
     final documentSnapshot = await firestore
