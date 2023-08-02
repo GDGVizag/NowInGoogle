@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart' as http;
 import 'package:nowingoogle/domain/repositories/get_place_repository.dart';
 
 import '../../data/failure.dart';

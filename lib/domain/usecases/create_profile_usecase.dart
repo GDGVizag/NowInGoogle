@@ -5,7 +5,6 @@ import 'package:nowingoogle/data/failure.dart';
 import 'package:nowingoogle/data/models/user_model.dart';
 import 'package:nowingoogle/domain/usecases/firestore_usecase.dart';
 import 'package:nowingoogle/domain/usecases/get_place_usecase.dart';
-import 'package:http/http.dart' as http;
 
 class CreateProfileUseCase {
   final GetPlaceUseCase getPlaceUseCase;
