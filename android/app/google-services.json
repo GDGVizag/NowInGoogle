@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "1010379975924-pm5u8fn51cajrakgtbvlamh40k9svr8h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.manasmalla.nowingoogle",
+            "certificate_hash": "8673fafc69ae246a849e610349c34fc4bb0a6c0c"
+          }
+        },
+        {
           "client_id": "1010379975924-uu04sdp61suebvkkvshj7vgbcu4aami2.apps.googleusercontent.com",
           "client_type": 3
         }

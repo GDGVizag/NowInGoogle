@@ -23,6 +23,7 @@ class GoogleOneTapAuthRepositoryImpl implements GoogleAuthRepository {
         idToken: request.idToken,
       );
       return Right(credential);
+      
     } on SocketException {
       return const Left(Failure(message: "Internet Not Connected"));
     } on Exception {

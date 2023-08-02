@@ -18,15 +18,26 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           if (!Platform.isAndroid) {
             emit(SplashUserLoggedOut());
           } else {
-            add(OnSignInWithGoogle());
+            add(const OnSignInWithGoogle());
           }
         }
       });
     });
 
     on<OnSignInWithGoogle>((event, emit) async {
-      print('olalala');
       final result = await Injector.firebaseAuthUseCase.signInUser();
+      result.fold((failure) {
+        Future.delayed(Duration(seconds: 1), () {
+          exit(0);
+        });
+        emit(SplashError(error: failure.message));
+      }, (isNewUser) {
+        if (isNewUser) {
+          emit(SplashNewUser());
+        } else {
+          emit(SplashUserAvailable());
+        }
+      });
     });
   }
 }
