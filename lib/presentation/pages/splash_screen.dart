@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:capped_progress_indicator/capped_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_one_tap_sign_in/google_one_tap_sign_in.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_bloc.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_event.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_state.dart';
@@ -18,6 +22,7 @@ class SplashPage extends StatelessWidget {
         Transform.translate(
           offset: const Offset(0, 54),
           child: Container(
+            width: double.infinity,
             padding: const EdgeInsets.all(24.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -31,36 +36,51 @@ class SplashPage extends StatelessWidget {
                       : null,
                 ),
                 Text(
-                  "I/O '23\nExtended",
+                  "Now in \nGoogle",
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "August 5, 2023",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Text(
-                      "Vizag",
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.color
-                              ?.withOpacity(0.5)),
-                    ),
-                  ],
+                SizedBox(
+                  height: 12,
                 ),
                 BlocBuilder<SplashBloc, SplashState>(builder: (context, state) {
                   if (state is SplashUserAvailable) {
                     return Text("Home screen");
                   } else if (state is SplashUserLoggedOut) {
-                    return Text("Login");
+                    if (!Platform.isAndroid) {
+                      return MaterialButton(
+                          color: Colors.white,
+                          onPressed: () {
+                            Injector.splashPageBloc
+                                .add(const OnSignInWithGoogle());
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/google-logo.svg',
+                                width: 18,
+                              ),
+                              SizedBox(
+                                width: 24,
+                              ),
+                              Text(
+                                'Login with Google',
+                                style: TextStyle(
+                                  color: Colors.black.withOpacity(0.54),
+                                ),
+                              ),
+                            ],
+                          ));
+                    } else {
+                      // var data = GoogleOneTapSignIn.startSignIn(webClientId: _webClientId);
+
+                      return FilledButton(
+                        onPressed: () {},
+                        child: Text('Continue'),
+                      );
+                    }
                   } else {
-                    return CircularProgressIndicator();
+                    return CircularCappedProgressIndicator();
                   }
                 }),
               ],

@@ -21,12 +21,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: lightColorScheme,
-        useMaterial3: true,
-      ),
+          colorScheme: lightColorScheme,
+          useMaterial3: true,
+          fontFamily: 'Google Sans'),
       darkTheme: ThemeData(
         colorScheme: darkColorScheme,
         useMaterial3: true,
+        fontFamily: 'Google Sans',
       ),
       initialRoute: 'splash',
       routes: {

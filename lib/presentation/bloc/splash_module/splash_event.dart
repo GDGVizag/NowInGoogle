@@ -11,3 +11,9 @@ class OnAppInit extends SplashEvent {
   @override
   List<Object?> get props => [];
 }
+
+class OnSignInWithGoogle extends SplashEvent {
+  const OnSignInWithGoogle();
+  @override
+  List<Object?> get props => [];
+}

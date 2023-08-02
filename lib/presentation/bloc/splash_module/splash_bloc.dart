@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nowingoogle/domain/usecases/firebase_auth_usecase.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_event.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_state.dart';
+import 'package:nowingoogle/presentation/injector.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final FirebaseAuthUseCase firebaseAuthUseCase;
@@ -15,6 +16,11 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           emit(SplashUserLoggedOut());
         }
       });
+    });
+
+    on<OnSignInWithGoogle>((event, emit) async {
+      print('olalala');
+      final result = await Injector.firebaseAuthUseCase.signInUser();
     });
   }
 }
