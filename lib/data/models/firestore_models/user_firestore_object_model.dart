@@ -14,14 +14,10 @@ class UserFirestoreModel implements FirestoreObjectModel<UserModel, User> {
   }
 
   @override
-  Map<String, dynamic> toJson(UserModel data) {
-    return data.toJson();
-  }
+  Map<String, dynamic> toJson(UserModel data) => data.toJson();
 
   @override
-  User toEntity(UserModel model) {
-    return model.toEntity();
-  }
+  User toEntity(UserModel model) => model.toEntity();
 
   @override
   UserModel fromEntity(User entity) => UserModel(
@@ -37,6 +33,7 @@ class UserFirestoreModel implements FirestoreObjectModel<UserModel, User> {
       organization: entity.organization,
       avatar: entity.avatar,
       bio: entity.bio,
+      handles: entity.handles,
       interests: entity.interests,
       blogs: entity.blogs,
       posts: entity.posts,

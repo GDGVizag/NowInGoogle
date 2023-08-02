@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:nowingoogle/data/callbacks.dart';
 
 import 'package:nowingoogle/data/failure.dart';
 import 'package:nowingoogle/domain/enums/collection_enum.dart';
@@ -18,11 +19,16 @@ class FirestoreUsecase<P> {
     return firestoreRepository.getData(documentId);
   }
 
-  Future<Either<Failure, void>> putData(P data, String? documentId) {
-    return firestoreRepository.putData(data, documentId: documentId);
+  Future<Either<Failure, void>> putData(P data, String? documentId,
+      {required OnSuccessCallbackListener onSuccessCallbackListener}) {
+    return firestoreRepository.putData(data,
+        documentId: documentId,
+        onSuccessCallbackListener: onSuccessCallbackListener);
   }
 
-  Future<Either<Failure, void>> updateData(String documentId, P data) {
-    return firestoreRepository.updateData(documentId, data);
+  Future<Either<Failure, void>> updateData(String documentId, P data,
+      {required OnSuccessCallbackListener onSuccessCallbackListener}) {
+    return firestoreRepository.updateData(documentId, data,
+        onSuccessCallbackListener: onSuccessCallbackListener);
   }
 }

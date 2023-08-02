@@ -10,6 +10,8 @@ class FirebaseAuthUseCase {
   const FirebaseAuthUseCase(
       {required this.firebaseAuthRepository, required this.oAuthUseCase});
 
+  bool get isLoggedIn => firebaseAuthRepository.isLoggedIn;
+
   Future<Either<Failure, bool>> signInUser() async {
     final credential = await oAuthUseCase.signInUser();
     return credential.fold((l) => Left(l),

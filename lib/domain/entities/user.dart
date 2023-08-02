@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:nowingoogle/domain/enums/social_platforms.dart';
 
 class User extends Equatable {
   final String firstName;
@@ -13,6 +14,7 @@ class User extends Equatable {
   final String organization;
   final String avatar;
   final String bio;
+  final Map<SocialPlatform, String> handles;
   final List<String> interests;
   final List<String> blogs;
   final List<String> posts;
@@ -36,6 +38,7 @@ class User extends Equatable {
     required this.organization,
     required this.avatar,
     required this.bio,
+    required this.handles,
     required this.interests,
     required this.blogs,
     required this.posts,

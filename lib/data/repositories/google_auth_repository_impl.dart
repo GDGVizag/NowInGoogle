@@ -28,10 +28,6 @@ class GoogleAuthRepositoryImpl implements GoogleAuthRepository {
       }
     } on SocketException {
       return const Left(Failure(message: "Internet Not Connected"));
-    } on FirebaseAuthException {
-      return const Left(Failure(message: "Oops! Server error."));
-    } on FirebaseException {
-      return const Left(Failure(message: "Oops! Server error."));
     } on Exception {
       return const Left(Failure(message: "Oops! Please try after some time."));
     }

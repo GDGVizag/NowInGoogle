@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:nowingoogle/domain/entities/event.dart';
 
 class EventModel extends Equatable {
   final String uid;
@@ -7,8 +9,8 @@ class EventModel extends Equatable {
   final String status; // Offline/ Online Event
   final String certificate;
   final int date;
-  final String latitude; //used to add [Navigate to Venue]
-  final String longitude; //used to add [Navigate to Venue]
+  final double? latitude; //used to add [Navigate to Venue]
+  final double? longitude; //used to add [Navigate to Venue]
   final List<String> perks;
   final bool registrationsOpen;
   final String?
@@ -30,4 +32,17 @@ class EventModel extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [uid];
+
+  Event toEntity() => Event(
+      uid: uid,
+      name: name,
+      cover: cover,
+      status: status,
+      certificate: certificate,
+      date: date,
+      location: latitude == null || longitude == null
+          ? null
+          : LatLng(latitude!, longitude!),
+      perks: perks,
+      registrationsOpen: registrationsOpen);
 }
