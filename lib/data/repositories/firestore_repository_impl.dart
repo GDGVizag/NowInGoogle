@@ -8,6 +8,8 @@ import 'package:nowingoogle/domain/enums/collection_enum.dart';
 import 'package:nowingoogle/domain/repositories/firestore_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../callbacks.dart';
+
 /// [P] - Model class
 ///
 /// [Q] - Entity class
@@ -34,7 +36,9 @@ class FirestoreRepositoryImpl<P, Q> implements FirestoreRepository<Q> {
   }
 
   @override
-  Future<Either<Failure, void>> putData(data, {String? documentId}) async {
+  Future<Either<Failure, void>> putData(data,
+      {String? documentId,
+      required OnSuccessCallbackListener onSuccessCallbackListener}) async {
     try {
       await firestore
           .collection(CollectionUtils.getCollectionPath(collection))
@@ -44,6 +48,7 @@ class FirestoreRepositoryImpl<P, Q> implements FirestoreRepository<Q> {
               objectModel.fromEntity(data),
             ),
           );
+      onSuccessCallbackListener.onSuccess();
       return const Right(null);
     } on SocketException {
       return const Left(Failure(message: 'Socket Exception'));
@@ -53,7 +58,8 @@ class FirestoreRepositoryImpl<P, Q> implements FirestoreRepository<Q> {
   }
 
   @override
-  Future<Either<Failure, void>> updateData(String documentId, Q data) {
+  Future<Either<Failure, void>> updateData(String documentId, Q data,
+      {required OnSuccessCallbackListener onSuccessCallbackListener}) {
     // TODO: implement updateData
     throw UnimplementedError();
   }

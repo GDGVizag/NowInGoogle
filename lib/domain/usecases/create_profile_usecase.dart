@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nowingoogle/data/callbacks.dart';
 import 'package:nowingoogle/data/failure.dart';
 import 'package:nowingoogle/data/models/user_model.dart';
 import 'package:nowingoogle/domain/usecases/firestore_usecase.dart';
@@ -13,14 +14,13 @@ class CreateProfileUseCase {
     required this.getPlaceUseCase,
     required this.firestoreUsecase,
   });
-  Future<Either<Failure, void>> createProfile(
-    User firebaseUser, {
-    required String username,
-    required String gender,
-    required int pincode,
-    required String career,
-    required String organization,
-  }) async {
+  Future<Either<Failure, void>> createProfile(User firebaseUser,
+      {required String username,
+      required String gender,
+      required int pincode,
+      required String career,
+      required String organization,
+      required OnSuccessCallbackListener onSuccessCallbackListener}) async {
     final cityResult = await getPlaceUseCase.getAddressFromPincode(pincode);
     return cityResult.fold((failure) => Left(failure), (city) async {
       UserModel userModel = UserModel(
@@ -38,6 +38,7 @@ class CreateProfileUseCase {
       return await firestoreUsecase.putData(
         userModel.toJson(),
         firebaseUser.uid,
+        onSuccessCallbackListener: onSuccessCallbackListener
       );
     });
   }
