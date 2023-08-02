@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nowingoogle/domain/usecases/firebase_auth_usecase.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_event.dart';
@@ -13,7 +15,11 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         if (isLoggedIn) {
           emit(SplashUserAvailable());
         } else {
-          emit(SplashUserLoggedOut());
+          if (!Platform.isAndroid) {
+            emit(SplashUserLoggedOut());
+          } else {
+            add(OnSignInWithGoogle());
+          }
         }
       });
     });
