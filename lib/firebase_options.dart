@@ -67,6 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1010379975924',
     projectId: 'nowingdev',
     storageBucket: 'nowingdev.appspot.com',
+    androidClientId: '1010379975924-5kpds66mordmicp1q78jqd1rjjilq7ej.apps.googleusercontent.com',
+    iosClientId: '1010379975924-kf06dpkijinhpv509i2tsi3bffshg9ki.apps.googleusercontent.com',
     iosBundleId: 'com.manasmalla.nowingoogle',
   );
 
@@ -76,6 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1010379975924',
     projectId: 'nowingdev',
     storageBucket: 'nowingdev.appspot.com',
+    androidClientId: '1010379975924-5kpds66mordmicp1q78jqd1rjjilq7ej.apps.googleusercontent.com',
+    iosClientId: '1010379975924-ie7jlc4vsq1o3qesdhvu7dg9gb6iaepi.apps.googleusercontent.com',
     iosBundleId: 'com.manasmalla.nowingoogle.RunnerTests',
   );
 }

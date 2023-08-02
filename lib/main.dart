@@ -1,8 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nowingoogle/color_schemes.g.dart';
+import 'package:nowingoogle/firebase_options.dart';
+import 'package:nowingoogle/presentation/injector.dart';
+import 'package:nowingoogle/presentation/pages/splash_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(create: (_) => Injector.splashPageBloc),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,24 +28,10 @@ class MyApp extends StatelessWidget {
         colorScheme: darkColorScheme,
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(),
+      initialRoute: 'splash',
+      routes: {
+        "splash": (context) => const SplashPage(),
+      },
     );
   }
 }

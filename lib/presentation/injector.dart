@@ -12,6 +12,7 @@ import 'package:nowingoogle/domain/repositories/firebase_auth_repository.dart';
 import 'package:nowingoogle/domain/usecases/create_profile_usecase.dart';
 import 'package:nowingoogle/domain/usecases/firebase_auth_usecase.dart';
 import 'package:nowingoogle/domain/usecases/google_auth_usecase.dart';
+import 'package:nowingoogle/presentation/bloc/splash_module/splash_bloc.dart';
 
 import '../data/datasources/get_place_datasource.dart';
 import '../data/models/firestore_models/firestore_object_model.dart';
@@ -60,4 +61,7 @@ class Injector {
 
   static CreateProfileUseCase createProfileUseCase = CreateProfileUseCase(
       getPlaceUseCase: getPlaceUseCase, firestoreUsecase: userFirestoreUseCase);
+
+  static SplashBloc splashPageBloc =
+      SplashBloc(firebaseAuthUseCase: firebaseAuthUseCase);
 }
