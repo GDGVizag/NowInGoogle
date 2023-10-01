@@ -1,5 +1,5 @@
 enum Collection {
-  Users,
-  Posts,
-  Blogs,
+  users,
+  posts,
+  blogs,
 }

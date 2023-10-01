@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_one_tap_sign_in/google_one_tap_sign_in.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_bloc.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_event.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_state.dart';
@@ -32,8 +31,8 @@ class SplashPage extends StatelessWidget {
                 SvgPicture.asset(
                   "assets/io-logo.svg",
                   width: 100,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
+                  colorFilter: Theme.of(context).brightness == Brightness.dark
+                      ? const ColorFilter.mode(Colors.white, BlendMode.srcIn)
                       : null,
                 ),
                 Text(

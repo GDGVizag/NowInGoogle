@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuthentication;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_authentication;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nowingoogle/data/models/firestore_models/user_firestore_object_model.dart';
 import 'package:nowingoogle/data/models/user_model.dart';
@@ -42,8 +42,8 @@ class Injector {
   static const GoogleOneTapAuthUseCase googleOneTapAuthUseCase =
       GoogleOneTapAuthUseCase(
           googleOneTapAuthRepository: googleOneTapAuthRepository);
-  static final FirebaseAuthentication.FirebaseAuth firebaseAuth =
-      FirebaseAuthentication.FirebaseAuth.instance;
+  static final firebase_authentication.FirebaseAuth firebaseAuth =
+      firebase_authentication.FirebaseAuth.instance;
   static FirebaseAuthRepository firebaseAuthRepository =
       FirebaseAuthRepositoryImpl(auth: firebaseAuth);
   static FirebaseAuthUseCase firebaseAuthUseCase = FirebaseAuthUseCase(
@@ -57,10 +57,10 @@ class Injector {
   static FirestoreRepository userFirestoreRepository =
       FirestoreRepositoryImpl<UserModel, User>(
           firestore: firestore,
-          collection: Collection.Users,
+          collection: Collection.users,
           objectModel: userFirestoreObjectModel);
   static FirestoreUsecase userFirestoreUseCase = FirestoreUsecase(
-      collectionType: Collection.Users,
+      collectionType: Collection.users,
       firestoreRepository: userFirestoreRepository);
 
   static GetPlaceDataSource getPlaceDataSource =
