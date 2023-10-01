@@ -9,6 +9,7 @@ import 'package:nowingoogle/domain/repositories/firestore_repository.dart';
 
 void main() {
   final instance = FakeFirebaseFirestore();
+  // ignore: unused_local_variable
   late FirestoreRepository<User> firestoreRepository;
   setUp(() async {
     await instance.collection("users").doc("manas").set({'username': 'manas'});
