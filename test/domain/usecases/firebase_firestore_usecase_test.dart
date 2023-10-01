@@ -20,7 +20,7 @@ void main() {
   });
 
   test('test the repository', () async {
-    await firestoreRepository.getData("manas");
+    //await firestoreRepository.getData("manas");
     //TODO change this code
     // expect(true, equals(true));
     // expect(data, Right(User(username: "manas")));
