@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nowingoogle/data/models/firestore_models/user_firestore_object_model.dart';
@@ -16,14 +15,14 @@ void main() {
     var userObjectModel = UserFirestoreModel();
     firestoreRepository = FirestoreRepositoryImpl<UserModel, User>(
         firestore: instance,
-        collection: Collection.Users,
+        collection: Collection.users,
         objectModel: userObjectModel);
   });
 
   test('test the repository', () async {
-    final data = await firestoreRepository.getData("manas");
+    await firestoreRepository.getData("manas");
     //TODO change this code
-    expect(true, equals(true));
+    // expect(true, equals(true));
     // expect(data, Right(User(username: "manas")));
   });
 }

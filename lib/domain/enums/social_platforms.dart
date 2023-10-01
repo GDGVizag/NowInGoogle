@@ -1,8 +1,8 @@
 enum SocialPlatform {
-  Twitter,
-  Instagram,
-  Facebook,
-  LinkedIn,
-  YouTube,
-  Snapchat,
+  twitter,
+  instagram,
+  facebook,
+  linkedIn,
+  youTube,
+  snapchat,
 }
