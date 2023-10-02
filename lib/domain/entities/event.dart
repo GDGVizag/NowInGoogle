@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Event extends Equatable {
-  final String uid;
+  final String id;
   final String name;
   final String cover;
   final String status; // Offline/ Online Event
@@ -16,7 +16,7 @@ class Event extends Equatable {
       message; //to display any quick message to users. eg: [Registrations Extended Till 00-00-0000!]
 
   const Event(
-      {required this.uid,
+      {required this.id,
       required this.name,
       required this.cover,
       required this.status,
@@ -28,6 +28,5 @@ class Event extends Equatable {
       this.message});
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [uid];
+  List<Object?> get props => [id];
 }

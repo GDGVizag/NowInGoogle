@@ -50,6 +50,5 @@ class User extends Equatable {
     required this.blacklisted,
   });
   @override
-  // TODO: implement props
   List<Object?> get props => [username];
 }

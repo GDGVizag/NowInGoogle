@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Post extends Equatable {
-  final String uid;
+  final String id;
   final String title;
   final String subtitle;
   final String body;
@@ -12,7 +12,7 @@ class Post extends Equatable {
       comments; // {'UID':{'Timestamp':'Comment'}}
 
   const Post({
-    required this.uid,
+    required this.id,
     required this.title,
     required this.subtitle,
     required this.body,
@@ -23,6 +23,5 @@ class Post extends Equatable {
   });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [uid];
+  List<Object?> get props => [id];
 }

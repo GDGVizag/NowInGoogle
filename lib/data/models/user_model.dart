@@ -54,7 +54,6 @@ class UserModel extends Equatable {
   });
 
   @override
-  // TODO: implement props
   List<Object?> get props => [username];
 
   factory UserModel.fromDocumentSnapshot(DocumentSnapshot snapshot) =>

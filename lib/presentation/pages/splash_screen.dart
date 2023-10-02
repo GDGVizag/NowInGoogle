@@ -9,6 +9,7 @@ import 'package:nowingoogle/presentation/bloc/splash_module/splash_bloc.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_event.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_state.dart';
 import 'package:nowingoogle/presentation/injector.dart';
+import 'package:nowingoogle/presentation/pages/layouts/bottom_sheets/create_profile_bottom_sheet.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -42,68 +43,7 @@ class SplashPage extends StatelessWidget {
                 const SizedBox(
                   height: 12,
                 ),
-                BlocBuilder<SplashBloc, SplashState>(builder: (context, state) {
-                  if (state is SplashUserAvailable) {
-                    return FilledButton(
-                        onPressed: () async {
-                          await FirebaseAuth.instance.signOut();
-                        },
-                        child: const Text("Sign out"));
-                  } else if (state is SplashUserLoggedOut) {
-                    if (!Platform.isAndroid) {
-                      return MaterialButton(
-                          color: Colors.white,
-                          onPressed: () {
-                            Injector.splashPageBloc
-                                .add(const OnSignInWithGoogle());
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/google-logo.svg',
-                                width: 18,
-                              ),
-                              const SizedBox(
-                                width: 24,
-                              ),
-                              Text(
-                                'Login with Google',
-                                style: TextStyle(
-                                  color: Colors.black.withOpacity(0.54),
-                                ),
-                              ),
-                            ],
-                          ));
-                    } else {
-                      // var data = GoogleOneTapSignIn.startSignIn(webClientId: _webClientId);
-
-                      return FilledButton(
-                        onPressed: () {
-                          Injector.splashPageBloc
-                              .add(const OnSignInWithGoogle());
-                        },
-                        child: const Text('Get Started'),
-                      );
-                    }
-                  } else if (state is SplashError) {
-                    //TODO: Handle the error in a more intuitive way
-                    return Text(state.error);
-                  } else if (state is SplashNewUser) {
-                    //TODO: Work on the bottom sheet
-                    showBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return Container();
-                        });
-                    return const SizedBox();
-                  } else {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: CircularCappedProgressIndicator(),
-                    );
-                  }
-                }),
+                const SplashBlocInjector(),
               ],
             ),
           ),
@@ -116,5 +56,108 @@ class SplashPage extends StatelessWidget {
         ),
       ]),
     );
+  }
+}
+
+class SplashBlocInjector extends StatelessWidget {
+  const SplashBlocInjector({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<SplashBloc, SplashState>(
+        listener: (context, state) async {
+      if (state is SplashUserAvailable) {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return CreateProfileBottomSheet(
+              GlobalKey(),
+            );
+          },
+        );
+        await FirebaseAuth.instance.signOut();
+      } else if (state is SplashError) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            iconColor: Theme.of(context).colorScheme.primary.withOpacity(0.4),
+            icon: const Icon(
+              Icons.sentiment_dissatisfied_rounded,
+            ),
+            title: const Text("Error"),
+            content: Text(
+                "We were unable to sign you in at the moment. ${state.error} Please try again now or later."),
+            actions: [
+              OutlinedButton(
+                onPressed: () {
+                  exit(1);
+                },
+                child: const Text("Close"),
+              ),
+              FilledButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Injector.splashPageBloc.add(const OnAppInit());
+                },
+                child: const Text("Try Again"),
+              )
+            ],
+          ),
+        );
+      } else if (state is SplashNewUser) {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return CreateProfileBottomSheet(
+              GlobalKey(),
+            );
+          },
+        );
+      }
+    }, builder: (context, state) {
+      if (state is SplashUserLoggedOut) {
+        if (!Platform.isAndroid) {
+          return MaterialButton(
+              color: Colors.white,
+              onPressed: () {
+                Injector.splashPageBloc.add(const OnSignInWithGoogle());
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    'assets/google-logo.svg',
+                    width: 18,
+                  ),
+                  const SizedBox(
+                    width: 24,
+                  ),
+                  Text(
+                    'Login with Google',
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.54),
+                    ),
+                  ),
+                ],
+              ));
+        } else {
+          // var data = GoogleOneTapSignIn.startSignIn(webClientId: _webClientId);
+
+          return FilledButton(
+            onPressed: () {
+              Injector.splashPageBloc.add(const OnSignInWithGoogle());
+            },
+            child: const Text('Get Started'),
+          );
+        }
+      } else {
+        return const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: CircularCappedProgressIndicator(),
+        );
+      }
+    });
   }
 }

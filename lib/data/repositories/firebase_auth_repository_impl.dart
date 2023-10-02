@@ -41,4 +41,8 @@ class FirebaseAuthRepositoryImpl implements FirebaseAuthRepository {
 
   @override
   bool get isLoggedIn => auth.currentUser != null;
+
+  @override
+  // TODO: implement currentUser
+  User? get currentUser => auth.currentUser;
 }
