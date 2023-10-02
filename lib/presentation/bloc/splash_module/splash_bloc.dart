@@ -27,9 +27,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     on<OnSignInWithGoogle>((event, emit) async {
       final result = await Injector.firebaseAuthUseCase.signInUser();
       result.fold((failure) {
-        Future.delayed(const Duration(seconds: 1), () {
-          exit(0);
-        });
         emit(SplashError(error: failure.message));
       }, (isNewUser) {
         if (isNewUser) {

@@ -11,6 +11,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (_) => Injector.splashPageBloc),
+    BlocProvider(create: (_) => Injector.createProfileBloc),
   ], child: const MyApp()));
 }
 

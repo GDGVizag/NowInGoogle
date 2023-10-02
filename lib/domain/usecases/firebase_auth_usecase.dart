@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nowingoogle/domain/repositories/firebase_auth_repository.dart';
 import 'package:nowingoogle/domain/usecases/oath_usecase.dart';
 
@@ -11,6 +12,8 @@ class FirebaseAuthUseCase {
       {required this.firebaseAuthRepository, required this.oAuthUseCase});
 
   bool get isLoggedIn => firebaseAuthRepository.isLoggedIn;
+
+  User? get currentUser => firebaseAuthRepository.currentUser;
 
   Future<Either<Failure, bool>> signInUser() async {
     final credential = await oAuthUseCase.signInUser();

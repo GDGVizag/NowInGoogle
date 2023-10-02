@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nowingoogle/domain/entities/event.dart';
 
 class EventModel extends Equatable {
-  final String uid;
+  final String id;
   final String name;
   final String cover;
   final String status; // Offline/ Online Event
@@ -17,7 +17,7 @@ class EventModel extends Equatable {
       message; //to display any quick message to users. eg: [Registrations Extended Till 00-00-0000!]
 
   const EventModel(
-      {required this.uid,
+      {required this.id,
       required this.name,
       required this.cover,
       required this.status,
@@ -30,11 +30,10 @@ class EventModel extends Equatable {
       this.message});
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [uid];
+  List<Object?> get props => [id];
 
   Event toEntity() => Event(
-      uid: uid,
+      id: id,
       name: name,
       cover: cover,
       status: status,

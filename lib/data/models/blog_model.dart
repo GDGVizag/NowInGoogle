@@ -1,16 +1,15 @@
 import 'package:equatable/equatable.dart';
 
 class BlogModel extends Equatable {
-  final String uid;
+  final String id;
   final String url;
   final String author;
   const BlogModel({
-    required this.uid,
+    required this.id,
     required this.url,
     required this.author,
   });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [uid];
+  List<Object?> get props => [id];
 }
