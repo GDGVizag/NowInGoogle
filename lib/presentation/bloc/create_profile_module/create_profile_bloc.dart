@@ -10,7 +10,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
   final FirebaseAuth firebaseAuth;
   CreateProfileBloc(
       {required this.createProfileUseCase, required this.firebaseAuth})
-      : super(CreateProfileFormState()) {
+      : super(const CreateProfileFormState()) {
     on<OnCreateProfile>((event, emit) async {
       // emit(CreateProfileLoading());
       var pincode = int.tryParse(event.pincode);
@@ -60,7 +60,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
     );
     on<OnUsernameValidationStatusReset>((event, emit) {
       emit(
-        CreateProfileFormState(
+        const CreateProfileFormState(
           isUsernameValidated: UsernameStatus.notValidated,
         ),
       );

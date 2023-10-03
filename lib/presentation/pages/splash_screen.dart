@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:capped_progress_indicator/capped_progress_indicator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +36,7 @@ class SplashPage extends StatelessWidget {
                       color: Colors.grey.shade700,
                       colorBlendMode: BlendMode.srcATop,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
                     Text(
@@ -58,7 +57,7 @@ class SplashPage extends StatelessWidget {
                     // ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Text(
