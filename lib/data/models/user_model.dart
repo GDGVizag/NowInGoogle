@@ -83,7 +83,30 @@ class UserModel extends Equatable {
           blacklisted: snapshot.get("blacklisted"));
 
   Map<String, dynamic> toJson() {
-    return {};
+    return {
+      "firstName": firstName,
+      "lastName": lastName,
+      "username": username,
+      "email": email,
+      "phone": phone,
+      "age": age,
+      "gender": gender,
+      "place": place,
+      "career": career,
+      "organization": organization,
+      "avatar": avatar,
+      "bio": bio,
+      "handles": handles,
+      "interests": interests,
+      "blogs": blogs,
+      "posts": posts,
+      "events": events,
+      "followers": followers,
+      "following": following,
+      "verified": verified,
+      "strikes": strikes,
+      "blacklisted": blacklisted
+    };
   }
 
   User toEntity() => User(

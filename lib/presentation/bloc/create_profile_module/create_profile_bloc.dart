@@ -7,24 +7,24 @@ import 'package:nowingoogle/presentation/bloc/create_profile_module/create_profi
 
 class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
   final CreateProfileUseCase createProfileUseCase;
-  final User? firebaseUser;
+  final FirebaseAuth firebaseAuth;
   CreateProfileBloc(
-      {required this.createProfileUseCase, required this.firebaseUser})
+      {required this.createProfileUseCase, required this.firebaseAuth})
       : super(CreateProfileFormState()) {
     on<OnCreateProfile>((event, emit) async {
-      emit(CreateProfileLoading());
+      // emit(CreateProfileLoading());
       var pincode = int.tryParse(event.pincode);
       if (pincode == null) {
         emit(const CreateProfileError(
-            error: "Pincode is not a valid numeric value"));
+            pincodeError: "Pincode is not a valid numeric value"));
         return;
       }
-      if (firebaseUser == null) {
+      if (firebaseAuth.currentUser == null) {
         emit(const CreateProfileError(error: "User is not logged in"));
         return;
       }
       final result = await createProfileUseCase.createProfile(
-        firebaseUser!,
+        firebaseAuth.currentUser!,
         username: event.username,
         gender: event.gender,
         pincode: pincode,
@@ -39,6 +39,31 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       result.fold((failure) {
         emit(CreateProfileError(error: failure.message));
       }, (r) => null);
+    });
+    on<OnValidateUsername>(
+      (event, emit) async {
+        final result =
+            await createProfileUseCase.validateUsername(event.username);
+        result.fold(
+          (failure) {
+            emit(
+              CreateProfileError(usernameError: failure.message),
+            );
+          },
+          (isUsernameValidated) {
+            emit(
+              CreateProfileFormState(isUsernameValidated: isUsernameValidated),
+            );
+          },
+        );
+      },
+    );
+    on<OnUsernameValidationStatusReset>((event, emit) {
+      emit(
+        CreateProfileFormState(
+          isUsernameValidated: UsernameStatus.notValidated,
+        ),
+      );
     });
   }
 }

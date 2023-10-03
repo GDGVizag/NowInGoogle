@@ -80,6 +80,6 @@ class Injector {
 
   static CreateProfileBloc createProfileBloc = CreateProfileBloc(
     createProfileUseCase: createProfileUseCase,
-    firebaseUser: firebaseAuthUseCase.currentUser,
+    firebaseAuth: firebaseAuth,
   );
 }

@@ -5,6 +5,7 @@ import 'package:nowingoogle/data/failure.dart';
 import 'package:nowingoogle/data/models/user_model.dart';
 import 'package:nowingoogle/domain/usecases/firestore_usecase.dart';
 import 'package:nowingoogle/domain/usecases/get_place_usecase.dart';
+import 'package:nowingoogle/presentation/bloc/create_profile_module/create_profile_state.dart';
 
 class CreateProfileUseCase {
   final GetPlaceUseCase getPlaceUseCase;
@@ -35,10 +36,18 @@ class CreateProfileUseCase {
           organization: organization);
 
       return await firestoreUsecase.putData(
-        userModel.toJson(),
-        firebaseUser.uid,
-        onSuccessCallbackListener: onSuccessCallbackListener
-      );
+          userModel.toEntity(), firebaseUser.uid,
+          onSuccessCallbackListener: onSuccessCallbackListener);
     });
+  }
+
+  Future<Either<Failure, UsernameStatus>> validateUsername(
+      String username) async {
+    final response =
+        await firestoreUsecase.queryDataCount("username", username);
+    return response.fold(
+        (failure) => Left(failure),
+        (responses) => Right(
+            responses == 0 ? UsernameStatus.unique : UsernameStatus.notUnique));
   }
 }
