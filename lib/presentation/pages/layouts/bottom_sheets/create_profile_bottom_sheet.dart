@@ -32,12 +32,13 @@ class CreateProfileBottomSheet extends StatelessWidget {
               );
             });
       }
-      if (state is CreateProfileSuccess) {
-        //Handle on success
-      }
     }, builder: (context, state) {
       if (state is CreateProfileLoading) {
         return const CreateProfileLoadingState();
+      }
+
+      if (state is CreateProfileSuccess) {
+        return const WelcomeOnboardBottomSheet();
       }
 
       return Padding(
@@ -53,6 +54,70 @@ class CreateProfileBottomSheet extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+class WelcomeOnboardBottomSheet extends StatelessWidget {
+  const WelcomeOnboardBottomSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 36.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.celebration),
+          const SizedBox(
+            height: 16,
+          ),
+          Text(
+            "Hello, Manas",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            "Welcome to\nGoogle Developers",
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          const Text(
+              "We're super excited to have you with us. We've made sure to make it very easy for you to navigate your way around. But, just note that there is always the contact option just incase you need some help.\n\nAlso, communities are fun with friends, so make sure to bring them on the app too!"),
+          const SizedBox(
+            height: 24,
+          ),
+          Row(
+            children: [
+              OutlinedButton(
+                onPressed: () {},
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.ios_share_rounded,
+                      size: 16,
+                    ),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Text("Share with friends"),
+                  ],
+                ),
+              ),
+              const Spacer(),
+              FilledButton(
+                onPressed: () {},
+                child: const Text("Claim your badge"),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 

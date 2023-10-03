@@ -10,9 +10,9 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
   final FirebaseAuth firebaseAuth;
   CreateProfileBloc(
       {required this.createProfileUseCase, required this.firebaseAuth})
-      : super(const CreateProfileFormState()) {
+      : super(CreateProfileSuccess()) {
     on<OnCreateProfile>((event, emit) async {
-      // emit(CreateProfileLoading());
+      emit(CreateProfileLoading());
       var pincode = int.tryParse(event.pincode);
       if (pincode == null) {
         emit(const CreateProfileError(
