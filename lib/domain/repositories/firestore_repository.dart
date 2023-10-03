@@ -10,4 +10,8 @@ abstract class FirestoreRepository<T> {
       required OnSuccessCallbackListener onSuccessCallbackListener});
   Future<Either<Failure, void>> updateData(String documentId, T data,
       {required OnSuccessCallbackListener onSuccessCallbackListener});
+
+  Future<Either<Failure, List<T>>> queryData(String key, String value);
+
+  Future<Either<Failure, int>> queryDataCount(String key, String value);
 }

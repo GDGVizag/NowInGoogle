@@ -21,3 +21,12 @@ class OnCreateProfile extends CreateProfileEvent {
   @override
   List<Object?> get props => [career, organization, pincode];
 }
+
+class OnValidateUsername extends CreateProfileEvent {
+  final String username;
+  const OnValidateUsername({required this.username});
+  @override
+  List<Object?> get props => [username];
+}
+
+class OnUsernameValidationStatusReset extends CreateProfileEvent {}

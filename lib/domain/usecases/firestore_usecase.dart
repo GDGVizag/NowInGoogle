@@ -31,4 +31,12 @@ class FirestoreUsecase<P> {
     return firestoreRepository.updateData(documentId, data,
         onSuccessCallbackListener: onSuccessCallbackListener);
   }
+
+  Future<Either<Failure, List<P>>> queryData(String key, String value) {
+    return firestoreRepository.queryData(key, value);
+  }
+
+  Future<Either<Failure, int>> queryDataCount(String key, String value) {
+    return firestoreRepository.queryDataCount(key, value);
+  }
 }

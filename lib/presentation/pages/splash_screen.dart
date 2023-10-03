@@ -29,12 +29,37 @@ class SplashPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SvgPicture.asset(
-                  "assets/io-logo.svg",
-                  width: 100,
-                  colorFilter: Theme.of(context).brightness == Brightness.dark
-                      ? const ColorFilter.mode(Colors.white, BlendMode.srcIn)
-                      : null,
+                Row(
+                  children: [
+                    Image.asset(
+                      "assets/logo-gdg.png",
+                      height: 16,
+                      color: Colors.grey.shade700,
+                      colorBlendMode: BlendMode.srcATop,
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      "Developers",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.w400),
+                    ),
+                    // SvgPicture.asset(
+                    //   "assets/io-logo.svg",
+                    //   width: 100,
+                    //   colorFilter:
+                    //       Theme.of(context).brightness == Brightness.dark
+                    //           ? const ColorFilter.mode(
+                    //               Colors.white, BlendMode.srcIn)
+                    //           : null,
+                    // ),
+                  ],
+                ),
+                SizedBox(
+                  height: 12,
                 ),
                 Text(
                   "Now in \nGoogle",
@@ -71,13 +96,15 @@ class SplashBlocInjector extends StatelessWidget {
       if (state is SplashUserAvailable) {
         showModalBottomSheet(
           context: context,
+          useRootNavigator: true,
+          isScrollControlled: true,
+          isDismissible: false,
           builder: (context) {
             return CreateProfileBottomSheet(
               GlobalKey(),
             );
           },
         );
-        await FirebaseAuth.instance.signOut();
       } else if (state is SplashError) {
         showDialog(
           context: context,
@@ -109,6 +136,9 @@ class SplashBlocInjector extends StatelessWidget {
       } else if (state is SplashNewUser) {
         showModalBottomSheet(
           context: context,
+          useRootNavigator: true,
+          isScrollControlled: true,
+          isDismissible: false,
           builder: (context) {
             return CreateProfileBottomSheet(
               GlobalKey(),

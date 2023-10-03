@@ -12,19 +12,45 @@ class CreateProfileBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateProfileBloc, CreateProfileState>(
-        builder: (context, state) {
+    return BlocConsumer<CreateProfileBloc, CreateProfileState>(
+        listener: (context, state) {
+      if (state is CreateProfileError && state.error.isNotEmpty) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Error"),
+                content: Text(state.error),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("OK"),
+                  )
+                ],
+              );
+            });
+      }
+      if (state is CreateProfileSuccess) {
+        //Handle on success
+      }
+    }, builder: (context, state) {
       if (state is CreateProfileLoading) {
         return const CreateProfileLoadingState();
       }
-      if (state is CreateProfileSuccess) {
-        return const Center(
-          child: Text("Success"),
-        );
-      }
-      return CreateProfileForm(
-        formKey: _formKey,
-        state: state,
+
+      return Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Wrap(
+          children: [
+            CreateProfileForm(
+              formKey: _formKey,
+              state: state,
+            ),
+          ],
+        ),
       );
     });
   }
@@ -50,9 +76,24 @@ class _CreateProfileFormState extends State<CreateProfileForm> {
   var pincodeController = TextEditingController();
   var usernameController = TextEditingController();
   var gender = "";
-  //TODO: Handle the username `TextField` and gender `SegmentedButton`
+  final FocusNode focusNode = FocusNode();
+  var usernameHasFocus = false;
+  var lastUsernameValidated = "";
   @override
   Widget build(BuildContext context) {
+    focusNode.addListener(() {
+      if (usernameHasFocus != focusNode.hasFocus) {
+        usernameHasFocus = focusNode.hasFocus;
+        if (!focusNode.hasFocus &&
+            usernameController.text.isNotEmpty &&
+            lastUsernameValidated != usernameController.text) {
+          Injector.createProfileBloc.add(
+            OnValidateUsername(username: usernameController.text),
+          );
+          lastUsernameValidated = usernameController.text;
+        }
+      }
+    });
     return Form(
       key: widget._formKey,
       child: Padding(
@@ -73,6 +114,83 @@ class _CreateProfileFormState extends State<CreateProfileForm> {
             ),
             const SizedBox(
               height: 12,
+            ),
+            TextFormField(
+              validator: (value) {
+                return (value?.isNotEmpty ?? false)
+                    ? null
+                    : "Please enter a valid input";
+              },
+              onChanged: (_) {
+                Injector.createProfileBloc
+                    .add(OnUsernameValidationStatusReset());
+              },
+              controller: usernameController,
+              focusNode: focusNode,
+              decoration: InputDecoration(
+                suffixIcon: (widget.state is CreateProfileFormState)
+                    ? (widget.state as CreateProfileFormState)
+                                .isUsernameValidated ==
+                            UsernameStatus.unique
+                        ? const Icon(Icons.check)
+                        : (widget.state as CreateProfileFormState)
+                                    .isUsernameValidated ==
+                                UsernameStatus.notUnique
+                            ? const Icon(Icons.error)
+                            : null
+                    : null,
+                filled: true,
+                label: const Text("Username"),
+                errorText: (widget.state is CreateProfileError)
+                    ? (widget.state as CreateProfileError).usernameError
+                    : (widget.state is CreateProfileFormState)
+                        ? ((widget.state as CreateProfileFormState)
+                                    .isUsernameValidated ==
+                                UsernameStatus.notUnique
+                            ? "Username already exists!"
+                            : null)
+                        : null,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: [
+                const Text("Gender"),
+                const SizedBox(
+                  width: 24,
+                ),
+                Expanded(
+                  child: SegmentedButton(
+                    segments: const [
+                      ButtonSegment(
+                        value: "male",
+                        label: Text("Male"),
+                      ),
+                      ButtonSegment(
+                        value: "female",
+                        label: Text("Female"),
+                      ),
+                      ButtonSegment(
+                        value: "other",
+                        label: Text("Other"),
+                      ),
+                    ],
+                    selected: {
+                      gender,
+                    },
+                    onSelectionChanged: (selectedValues) {
+                      setState(() {
+                        gender = selectedValues.first;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 16,
             ),
             Autocomplete(
               optionsBuilder: (textEditingValue) {
@@ -180,7 +298,7 @@ class _CreateProfileFormState extends State<CreateProfileForm> {
                 filled: true,
                 label: const Text("Pincode"),
                 errorText: (widget.state is CreateProfileError)
-                    ? (widget.state as CreateProfileError).error
+                    ? (widget.state as CreateProfileError).pincodeError
                     : null,
               ),
             ),
@@ -189,21 +307,28 @@ class _CreateProfileFormState extends State<CreateProfileForm> {
               child: SizedBox(
                   width: double.infinity,
                   child: FilledButton(
-                    onPressed: () {
-                      if (widget._formKey.currentState?.validate() ?? false) {
-                        Injector.createProfileBloc.add(
-                          OnCreateProfile(
-                            username: usernameController.text,
-                            gender: gender,
-                            career: career,
-                            organization: organization,
-                            pincode: pincodeController.text,
-                          ),
-                        );
-                      } else {
-                        //TODO show snackbar with error
-                      }
-                    },
+                    onPressed: (widget.state is CreateProfileError &&
+                                (widget.state as CreateProfileError)
+                                    .usernameError
+                                    .isNotEmpty) ||
+                            usernameController.text.isEmpty
+                        ? null
+                        : () {
+                            if (widget._formKey.currentState?.validate() ??
+                                false) {
+                              Injector.createProfileBloc.add(
+                                OnCreateProfile(
+                                  username: usernameController.text,
+                                  gender: gender,
+                                  career: career,
+                                  organization: organization,
+                                  pincode: pincodeController.text,
+                                ),
+                              );
+                            } else {
+                              //TODO show snackbar with error
+                            }
+                          },
                     child: const Text("Save"),
                   )),
             )
