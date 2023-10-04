@@ -94,7 +94,9 @@ class WelcomeOnboardBottomSheet extends StatelessWidget {
           Row(
             children: [
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  //TODO: Open the share sheet for referral
+                },
                 child: const Row(
                   children: [
                     Icon(
@@ -110,7 +112,10 @@ class WelcomeOnboardBottomSheet extends StatelessWidget {
               ),
               const Spacer(),
               FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  //TODO: Add the badge and navigate to home screen
+                  Navigator.of(context).pushReplacementNamed("home");
+                },
                 child: const Text("Claim your badge"),
               ),
             ],
