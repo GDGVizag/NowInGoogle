@@ -40,7 +40,6 @@ class CreateProfileBottomSheet extends StatelessWidget {
       if (state is CreateProfileSuccess) {
         return const WelcomeOnboardBottomSheet();
       }
-
       return Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -56,6 +55,7 @@ class CreateProfileBottomSheet extends StatelessWidget {
     });
   }
 }
+
 
 class WelcomeOnboardBottomSheet extends StatelessWidget {
   const WelcomeOnboardBottomSheet({super.key});
