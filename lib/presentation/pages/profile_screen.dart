@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final User user = ModalRoute.of(context)?.settings.arguments as User;
     var nameController =
-        TextEditingController(text: user.firstName + " " + user.lastName);
+        TextEditingController(text: "${user.firstName} ${user.lastName}");
     var handleController =
         TextEditingController(text: user.handles.values.firstOrNull ?? "");
     var bioController = TextEditingController(text: user.bio);

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nowingoogle/data/utils/capitalize.dart';
 import 'package:nowingoogle/domain/enums/user_roles.dart';

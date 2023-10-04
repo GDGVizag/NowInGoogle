@@ -5,7 +5,6 @@ import 'package:nowingoogle/data/models/volunteer_model.dart';
 import 'package:nowingoogle/domain/enums/social_platforms.dart';
 import 'package:nowingoogle/domain/enums/user_roles.dart';
 import 'package:nowingoogle/presentation/pages/layouts/profile/profile_avatar_image.dart';
-import 'package:nowingoogle/presentation/pages/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -105,7 +104,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () {},
         ),
         centerTitle: false,

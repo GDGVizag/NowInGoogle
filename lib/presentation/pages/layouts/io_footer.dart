@@ -14,7 +14,7 @@ class ProfileFooter extends StatelessWidget {
           child: SvgPicture.asset(
             "assets/io-logo.svg",
             height: 32,
-            color: primaryColor,
+            colorFilter: ColorFilter.mode(primaryColor, BlendMode.srcIn),
           ),
         ),
         Padding(
