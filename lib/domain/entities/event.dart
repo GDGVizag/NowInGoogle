@@ -5,6 +5,7 @@ class Event extends Equatable {
   final String id;
   final String name;
   final String cover;
+  final String poster;
   final String status; // Offline/ Online Event
   final String certificate;
   final int date;
@@ -19,6 +20,7 @@ class Event extends Equatable {
       {required this.id,
       required this.name,
       required this.cover,
+      required this.poster,
       required this.status,
       required this.certificate,
       required this.date,

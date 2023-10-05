@@ -8,7 +8,9 @@ import 'package:nowingoogle/presentation/bloc/splash_module/splash_bloc.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_event.dart';
 import 'package:nowingoogle/presentation/bloc/splash_module/splash_state.dart';
 import 'package:nowingoogle/presentation/injector.dart';
-import 'package:nowingoogle/presentation/pages/layouts/bottom_sheets/create_profile_bottom_sheet.dart';
+import 'package:nowingoogle/presentation/pages/widgets/bottom_sheets/create_profile_bottom_sheet.dart';
+
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -130,7 +132,7 @@ class SplashBlocInjector extends StatelessWidget {
           isDismissible: false,
           builder: (context) {
             return CreateProfileBottomSheet(
-              GlobalKey(),
+              formKey,
             );
           },
         );

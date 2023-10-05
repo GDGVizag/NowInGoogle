@@ -14,4 +14,6 @@ abstract class FirestoreRepository<T> {
   Future<Either<Failure, List<T>>> queryData(String key, String value);
 
   Future<Either<Failure, int>> queryDataCount(String key, String value);
+
+  Future<Either<Failure, bool>> queryIfDocumentExists(String key);
 }

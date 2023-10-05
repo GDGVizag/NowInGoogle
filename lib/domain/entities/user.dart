@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:nowingoogle/domain/enums/social_platforms.dart';
 import 'package:nowingoogle/domain/enums/user_roles.dart';
-import 'package:nowingoogle/presentation/pages/constants/color_scheme.dart';
+import 'package:nowingoogle/presentation/constants/color_scheme.dart';
 
 class User extends Equatable {
   final String firstName;

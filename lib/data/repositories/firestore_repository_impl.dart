@@ -106,4 +106,22 @@ class FirestoreRepositoryImpl<P, Q> implements FirestoreRepository<Q> {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> queryIfDocumentExists(String key) async {
+    try {
+      final doesDocumentExist = (await firestore
+              .collection(CollectionUtils.getCollectionPath(collection))
+              .doc(key)
+              .get())
+          .exists;
+      return Right(doesDocumentExist);
+    } catch (e) {
+      return Left(
+        Failure(
+          message: e.toString(),
+        ),
+      );
+    }
+  }
 }

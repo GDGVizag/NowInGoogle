@@ -5,12 +5,12 @@ import 'package:nowingoogle/domain/entities/speaker.dart';
 import 'package:nowingoogle/domain/entities/user.dart';
 import 'package:nowingoogle/domain/entities/volunteer.dart';
 import 'package:nowingoogle/domain/enums/user_roles.dart';
-import 'package:nowingoogle/presentation/pages/layouts/io_footer.dart';
-import 'package:nowingoogle/presentation/pages/layouts/profile/profile_header.dart';
-import 'package:nowingoogle/presentation/pages/layouts/profile/profile_section.dart';
-import 'package:nowingoogle/presentation/pages/widgets/title_subtitle_listview.dart';
-import 'package:nowingoogle/presentation/pages/widgets/primary_button.dart';
-import 'package:nowingoogle/presentation/pages/widgets/secondary_button.dart';
+import 'package:nowingoogle/presentation/pages/widgets/io_footer.dart';
+import 'package:nowingoogle/presentation/layouts/profile/profile_header.dart';
+import 'package:nowingoogle/presentation/layouts/profile/profile_section.dart';
+import 'package:nowingoogle/presentation/layouts/title_subtitle_listview.dart';
+import 'package:nowingoogle/presentation/layouts/primary_button.dart';
+import 'package:nowingoogle/presentation/layouts/secondary_button.dart';
 
 class ProfileScreen extends StatefulWidget {
   // final User user;

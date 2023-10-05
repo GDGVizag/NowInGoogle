@@ -76,6 +76,7 @@ class Injector {
 
   static SplashBloc splashPageBloc = SplashBloc(
     firebaseAuthUseCase: firebaseAuthUseCase,
+    firestoreUsecase: userFirestoreUseCase,
   );
 
   static CreateProfileBloc createProfileBloc = CreateProfileBloc(

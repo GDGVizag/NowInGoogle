@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nowingoogle/data/models/user_model.dart';
 import 'package:nowingoogle/domain/entities/speaker.dart';
 import 'package:nowingoogle/domain/enums/user_roles.dart';
-import 'package:nowingoogle/presentation/pages/constants/color_scheme.dart';
+import 'package:nowingoogle/presentation/constants/color_scheme.dart';
 
 class SpeakerModel extends UserModel {
   final String talkTitle;

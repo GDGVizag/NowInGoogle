@@ -39,4 +39,8 @@ class FirestoreUsecase<P> {
   Future<Either<Failure, int>> queryDataCount(String key, String value) {
     return firestoreRepository.queryDataCount(key, value);
   }
+
+  Future<Either<Failure, bool>> queryIfDocumentExists(String key) {
+    return firestoreRepository.queryIfDocumentExists(key);
+  }
 }
