@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nowingoogle/color_schemes.g.dart';
 import 'package:nowingoogle/firebase_options.dart';
 import 'package:nowingoogle/presentation/injector.dart';
+import 'package:nowingoogle/presentation/pages/home_screen.dart';
+import 'package:nowingoogle/presentation/pages/profile_screen.dart';
 import 'package:nowingoogle/presentation/pages/splash_screen.dart';
 
 Future<void> main() async {
@@ -32,7 +34,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'splash',
       routes: {
-        "splash": (context) => const SplashPage(),
+        'splash': (context) => const SplashPage(),
+        'home': (context) => const HomeScreen(),
+        'profile': (context) => const ProfileScreen(),
       },
     );
   }

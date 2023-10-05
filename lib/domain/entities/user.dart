@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:nowingoogle/domain/enums/social_platforms.dart';
+import 'package:nowingoogle/domain/enums/user_roles.dart';
+import 'package:nowingoogle/presentation/pages/constants/color_scheme.dart';
 
 class User extends Equatable {
   final String firstName;
@@ -24,8 +26,11 @@ class User extends Equatable {
   final bool verified;
   final int strikes;
   final bool blacklisted;
+  final UserRole userRole;
+  final UserColorScheme colorScheme;
 
   const User({
+    this.userRole = UserRole.attendee,
     required this.firstName,
     required this.lastName,
     required this.username,
@@ -48,6 +53,7 @@ class User extends Equatable {
     required this.verified,
     required this.strikes,
     required this.blacklisted,
+    this.colorScheme = attendeeColorScheme,
   });
   @override
   List<Object?> get props => [username];

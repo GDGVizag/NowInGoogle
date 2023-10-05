@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nowingoogle/domain/entities/user.dart';
+import 'package:nowingoogle/domain/enums/user_roles.dart';
 
 import '../../domain/enums/social_platforms.dart';
 
 class UserModel extends Equatable {
+  final UserRole userRole;
   final String firstName;
   final String lastName;
   final String username;
@@ -29,6 +31,7 @@ class UserModel extends Equatable {
   final bool blacklisted;
 
   const UserModel({
+    this.userRole = UserRole.attendee,
     required this.firstName,
     required this.lastName,
     required this.username,

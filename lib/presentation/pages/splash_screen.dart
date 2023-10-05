@@ -93,17 +93,7 @@ class SplashBlocInjector extends StatelessWidget {
     return BlocConsumer<SplashBloc, SplashState>(
         listener: (context, state) async {
       if (state is SplashUserAvailable) {
-        showModalBottomSheet(
-          context: context,
-          useRootNavigator: true,
-          isScrollControlled: true,
-          isDismissible: false,
-          builder: (context) {
-            return CreateProfileBottomSheet(
-              GlobalKey(),
-            );
-          },
-        );
+        Navigator.of(context).pushReplacementNamed('home');
       } else if (state is SplashError) {
         showDialog(
           context: context,
