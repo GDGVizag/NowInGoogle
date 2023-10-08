@@ -2,67 +2,156 @@ import 'package:flutter/material.dart';
 import 'package:nowingoogle/domain/enums/user_roles.dart';
 import 'package:nowingoogle/presentation/pages/temp/user_data.dart';
 
-class StoryCarousel extends StatelessWidget {
-  final userdata = const [
-    UserData(
-      name: "manas_malla",
-      image: "https://avatars.githubusercontent.com/u/38750492?v=4",
-      hasActiveStory: true,
-      userRole: UserRole.speaker,
-    ),
-    UserData(
+final userdata = [
+  const UserData(
+    fullName: "Manas Malla",
+    name: "manas_malla",
+    image: "https://avatars.githubusercontent.com/u/38750492?v=4",
+    hasActiveStory: true,
+    userRole: UserRole.speaker,
+  ),
+  UserData(
+      fullName: "బాల త్రిపుర సుందరి",
       name: "bala_vemulakonda",
       image:
           "https://raw.githubusercontent.com/ManasMalla/WhatsApp/main/app/src/main/res/drawable/bala_tripura_sundari_vemulakonda.jpg",
       hasActiveStory: true,
       userRole: UserRole.organizer,
-    ),
-    UserData(
-      name: "sampathbalivada",
-      image:
-          "https://pbs.twimg.com/profile_images/1651092489443610624/9JA2O0DG_400x400.jpg",
-      hasActiveStory: true,
-      userRole: UserRole.volunteer,
-    ),
-    UserData(
-      name: "gee.tika_",
+      messages: [
+        Message(
+          message: "Tug of war baga jaruguthudha akkoi!",
+          poster: "manasmalla",
+          timestamp: DateTime.now()
+              .subtract(const Duration(minutes: 10))
+              .microsecondsSinceEpoch,
+        )
+      ]),
+  UserData(
+    fullName: "Sampath Balivada",
+    name: "sampath_balivada",
+    image:
+        "https://pbs.twimg.com/profile_images/1651092489443610624/9JA2O0DG_400x400.jpg",
+    hasActiveStory: true,
+    userRole: UserRole.organizer,
+    messages: [
+      Message(
+          message: "Mentioned you in a story",
+          poster: "sampath_balivada",
+          timestamp: DateTime.now()
+              .subtract(const Duration(hours: 11))
+              .microsecondsSinceEpoch)
+    ],
+  ),
+  UserData(
+      fullName: "Geethika Chadaram",
+      name: "gee.thika_",
       image:
           "https://raw.githubusercontent.com/sreetejadusi/ig-data-repo/main/geetika.jpg",
       hasActiveStory: true,
-    ),
-    UserData(
-      name: "sundar_pichai",
-      image:
-          "https://static.toiimg.com/thumb/resizemode-4,msid-72377199,width-1200,height-900/72377199.jpg",
-      hasActiveStory: false,
-      userRole: UserRole.organizer,
-    ),
-    UserData(
-      name: "lochan_m",
-      image:
-          "https://raw.githubusercontent.com/sreetejadusi/ig-data-repo/main/lochan.jpg",
-      hasActiveStory: false,
-    ),
-    UserData(
-      name: "srindhi_chitti",
-      image:
-          "https://raw.githubusercontent.com/sreetejadusi/ig-data-repo/main/nidhi.jpg",
-      hasActiveStory: false,
-    ),
-    UserData(
-      name: "mohan_satya",
-      image:
-          "https://raw.githubusercontent.com/sreetejadusi/ig-data-repo/main/mohan.jpg",
-      hasActiveStory: false,
-    ),
-    UserData(
-      name: "satwik_varma",
-      image:
-          "https://raw.githubusercontent.com/sreetejadusi/ig-data-repo/main/satwik.jpeg",
-      hasActiveStory: false,
-    ),
-  ];
+      messages: [
+        Message(
+            message: "Manas, could you checkout the Firestore API",
+            poster: "gee.thika_",
+            timestamp: DateTime.now()
+                .subtract(const Duration(hours: 5, minutes: 5))
+                .microsecondsSinceEpoch),
+        Message(
+            message: "I've tested out the API and it works fine",
+            poster: "manas_malla",
+            timestamp: DateTime.now()
+                .subtract(const Duration(hours: 5))
+                .microsecondsSinceEpoch),
+        Message(
+            message: "Oh ok, could you share some sample code?",
+            poster: "gee.thika_",
+            timestamp: DateTime.now()
+                .subtract(const Duration(hours: 4, minutes: 30))
+                .microsecondsSinceEpoch),
+        Message(
+            message: "https://docs.firebase.com/firestore",
+            poster: "manas_malla",
+            timestamp: DateTime.now()
+                .subtract(const Duration(hours: 4))
+                .microsecondsSinceEpoch),
+        Message(
+            message: "Thank you. I'll check it out",
+            poster: "gee.thika_",
+            timestamp: DateTime.now()
+                .subtract(const Duration(hours: 3, minutes: 30))
+                .microsecondsSinceEpoch),
+      ],
+      userRole: UserRole.volunteer),
+  UserData(
+    fullName: "Sundar Pichai",
+    name: "sundar_pichai",
+    image:
+        "https://static.toiimg.com/thumb/resizemode-4,msid-72377199,width-1200,height-900/72377199.jpg",
+    hasActiveStory: false,
+    userRole: UserRole.organizer,
+    messages: [
+      Message(
+          message: "What's the status of the Now in Google app?",
+          poster: "sundar_pichai",
+          timestamp: DateTime.now()
+              .subtract(const Duration(hours: 23))
+              .microsecondsSinceEpoch)
+    ],
+  ),
+  UserData(
+    fullName: "Lochan Mathukumilli",
+    name: "lochan_m",
+    image:
+        "https://raw.githubusercontent.com/sreetejadusi/ig-data-repo/main/lochan.jpg",
+    hasActiveStory: false,
+    messages: [
+      Message(
+          message: "Mentioned you in a story",
+          poster: "sampath_balivada",
+          timestamp: DateTime.now()
+              .subtract(const Duration(hours: 11))
+              .microsecondsSinceEpoch)
+    ],
+  ),
+  const UserData(
+    fullName: "Srinidhi Chitti",
+    name: "srindhi_chitti",
+    image:
+        "https://raw.githubusercontent.com/sreetejadusi/ig-data-repo/main/nidhi.jpg",
+    hasActiveStory: false,
+  ),
+  UserData(
+    fullName: "Mohan Satya Kommana",
+    name: "mohan_satya",
+    image:
+        "https://raw.githubusercontent.com/sreetejadusi/ig-data-repo/main/mohan.jpg",
+    hasActiveStory: false,
+    messages: [
+      Message(
+          message: "How do we use firebase_core",
+          poster: "mohan_satya",
+          timestamp: DateTime.now()
+              .subtract(const Duration(hours: 16))
+              .microsecondsSinceEpoch)
+    ],
+  ),
+  UserData(
+    fullName: "Satwik Varma",
+    name: "satwik_varma",
+    image:
+        "https://raw.githubusercontent.com/sreetejadusi/ig-data-repo/main/satwik.jpeg",
+    hasActiveStory: false,
+    messages: [
+      Message(
+          message: "I've tested out the API and it works fine",
+          poster: "manas_malla",
+          timestamp: DateTime.now()
+              .subtract(const Duration(days: 2))
+              .microsecondsSinceEpoch)
+    ],
+  ),
+];
 
+class StoryCarousel extends StatelessWidget {
   const StoryCarousel({
     super.key,
   });
@@ -72,6 +161,7 @@ class StoryCarousel extends StatelessWidget {
     return SizedBox(
       height: 100,
       child: ListView.separated(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           scrollDirection: Axis.horizontal,
           primary: false,
           shrinkWrap: true,

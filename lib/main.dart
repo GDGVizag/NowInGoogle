@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nowingoogle/color_schemes.g.dart';
 import 'package:nowingoogle/firebase_options.dart';
 import 'package:nowingoogle/presentation/injector.dart';
+import 'package:nowingoogle/presentation/pages/chat_list_page.dart';
+import 'package:nowingoogle/presentation/pages/chat_page.dart';
 import 'package:nowingoogle/presentation/pages/home_screen.dart';
 import 'package:nowingoogle/presentation/pages/event_page.dart';
 import 'package:nowingoogle/presentation/layouts/story/story_page.dart';
@@ -41,6 +43,8 @@ class MyApp extends StatelessWidget {
         'profile': (context) => const ProfileScreen(),
         'event': (context) => const EventPage(),
         'story': (context) => const StoryPage(),
+        'chat': (context) => const ChatPage(),
+        'user-chat': (context) => const UserChatPage(),
       },
     );
   }
