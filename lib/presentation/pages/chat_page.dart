@@ -2,7 +2,6 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:nowingoogle/data/utils/capitalize.dart';
 import 'package:nowingoogle/domain/enums/user_roles.dart';
-import 'package:nowingoogle/presentation/constants/color_scheme.dart';
 import 'package:nowingoogle/presentation/layouts/story/story_carousel.dart';
 import 'package:nowingoogle/presentation/pages/temp/user_data.dart';
 
@@ -11,22 +10,6 @@ class UserChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getMessageTimestamp(int timestamp) {
-      final durationDifference = DateTime.fromMicrosecondsSinceEpoch(timestamp)
-          .difference(DateTime.now())
-          .abs();
-      if (durationDifference.inDays > 0) {
-        return "${durationDifference.inDays}d";
-      }
-      if (durationDifference.inHours > 0) {
-        return "${durationDifference.inHours}h";
-      }
-      if (durationDifference.inMinutes > 0) {
-        return "${durationDifference.inMinutes}m";
-      }
-      return "Just now";
-    }
-
     final user = ModalRoute.of(context)!.settings.arguments as UserData;
 
     final mentions = (userdata.skip(1).take(5));

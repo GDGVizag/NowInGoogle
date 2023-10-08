@@ -67,7 +67,7 @@ const organizerState = VolunteerModel(
 
 //Speaker
 const speakerState = SpeakerModel(
-    firstName: "Malla",
+    firstName: "Manas",
     lastName: "Malla",
     username: "manasmalla",
     avatar:
@@ -83,6 +83,25 @@ const speakerState = SpeakerModel(
     talkTitle: "the all new, Android Studio: Bot",
     email: "speaker@manasmalla.dev",
     phone: "9059145216",
+    organization: "GDG Vizag",
+    place: "Visakhapatnam");
+const ushaMaam = SpeakerModel(
+    firstName: "Usha Ramani",
+    lastName: "Vemuru",
+    username: "vusharamani",
+    avatar:
+        "https://images.yourstory.com/cs/images/people/1598772609574-1634725257316.jpg",
+    career: "Organizer",
+    gender: "female",
+    handles: {
+      SocialPlatform.linkedIn: "vusharamani",
+    },
+    bio:
+        "Co-Founder@GURUJADA | Helping online teachers create engaging courses | Guiding students and professionals with LearningPaths podcast | GDG/WTM ambassador | #Iamremarkable facilitator",
+    talkTime: 30,
+    talkTitle: "Leveraging Communities",
+    email: "usha@gurujada.com",
+    phone: "1234567890",
     organization: "GDG Vizag",
     place: "Visakhapatnam");
 var userStates = [attendeeState, volunteerState, organizerState, speakerState];

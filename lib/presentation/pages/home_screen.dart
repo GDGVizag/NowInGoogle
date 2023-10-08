@@ -1,6 +1,5 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:nowingoogle/data/datasources/sample_data/sample_blogs.dart';
 import 'package:nowingoogle/data/datasources/sample_data/sample_events.dart';
 import 'package:nowingoogle/data/datasources/sample_data/sample_user_states.dart';
 import 'package:nowingoogle/presentation/layouts/profile/profile_avatar_image.dart';
@@ -8,9 +7,6 @@ import 'package:nowingoogle/presentation/layouts/story/story_carousel.dart';
 import 'package:nowingoogle/presentation/pages/widgets/event_announcement.dart';
 import 'package:nowingoogle/presentation/pages/widgets/home/around_you_section.dart';
 import 'package:nowingoogle/presentation/pages/widgets/home/interests_selection_screen.dart';
-import 'package:nowingoogle/presentation/pages/widgets/home/posts/post_card_top.dart';
-import 'package:nowingoogle/presentation/pages/widgets/home/posts/post_recommendations_from_network.dart';
-import 'package:nowingoogle/presentation/pages/widgets/home/posts/post_card.dart';
 import 'package:nowingoogle/presentation/pages/widgets/home/top_events_carousel.dart';
 import 'package:nowingoogle/presentation/pages/widgets/home/top_reads_section.dart';
 
