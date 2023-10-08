@@ -12,6 +12,7 @@ import 'package:nowingoogle/presentation/pages/widgets/home/posts/post_card_top.
 import 'package:nowingoogle/presentation/pages/widgets/home/posts/post_recommendations_from_network.dart';
 import 'package:nowingoogle/presentation/pages/widgets/home/posts/post_card.dart';
 import 'package:nowingoogle/presentation/pages/widgets/home/top_events_carousel.dart';
+import 'package:nowingoogle/presentation/pages/widgets/home/top_reads_section.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -37,7 +38,9 @@ class HomeScreen extends StatelessWidget {
             width: 12,
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('chat');
+            },
             icon: const Icon(FeatherIcons.send),
           ),
           const SizedBox(
@@ -71,7 +74,13 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const StoryCarousel(),
+                  SizedBox(
+                    height: 100,
+                    child: OverflowBox(
+                        maxHeight: 100,
+                        maxWidth: MediaQuery.of(context).size.width,
+                        child: const StoryCarousel()),
+                  ),
                   const SizedBox(
                     height: 24,
                   ),
@@ -87,41 +96,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(
                     height: 24,
                   ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Top Reads",
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ),
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Top stories just for you. Read them now!",
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const PostCardTop(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ListView.separated(
-                    itemBuilder: (context, index) {
-                      return PostCard(post: blogs[index]);
-                    },
-                    separatorBuilder: (context, index) {
-                      return index % 3 == 2
-                          ? const PostRecommendationsFromNetwork()
-                          : const SizedBox(
-                              height: 16,
-                            );
-                    },
-                    itemCount: blogs.length,
-                    primary: false,
-                    shrinkWrap: true,
-                  ),
+                  const TopReadsSection(),
                 ],
               ),
             ),
