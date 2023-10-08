@@ -379,58 +379,65 @@ class AgendaListTile extends StatelessWidget {
                       const SizedBox(
                         height: 8,
                       ),
-                      Row(
-                        children: [
-                          ClipOval(
-                            child: Image.network(
-                              agendaItem.speaker.avatar,
-                              height: 54,
-                              width: 54,
-                              fit: BoxFit.cover,
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed("profile",
+                              arguments: agendaItem.speaker);
+                        },
+                        child: Row(
+                          children: [
+                            ClipOval(
+                              child: Image.network(
+                                agendaItem.speaker.avatar,
+                                height: 54,
+                                width: 54,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 24,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "${agendaItem.speaker.firstName} ${agendaItem.speaker.lastName}",
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Icon(
-                                    Icons.verified,
-                                    color: Colors.blue.shade700,
-                                    size: 16,
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                "${agendaItem.speaker.career}, ${agendaItem.speaker.organization}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium
-                                    ?.copyWith(fontWeight: FontWeight.normal),
-                              ),
-                              Text(
-                                "@${agendaItem.speaker.username}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.grey.shade700),
-                              ),
-                            ],
-                          ),
-                        ],
+                            const SizedBox(
+                              width: 24,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "${agendaItem.speaker.firstName} ${agendaItem.speaker.lastName}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Icon(
+                                      Icons.verified,
+                                      color: Colors.blue.shade700,
+                                      size: 16,
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  "${agendaItem.speaker.career}, ${agendaItem.speaker.organization}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium
+                                      ?.copyWith(fontWeight: FontWeight.normal),
+                                ),
+                                Text(
+                                  "@${agendaItem.speaker.username}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.grey.shade700),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                       agendaItem.notes.isEmpty
                           ? const SizedBox()
