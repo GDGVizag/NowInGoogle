@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nowingoogle/data/datasources/sample_data/sample_user_states.dart';
+import 'package:nowingoogle/data/datasources/sample_data/sample_devfest_agenda.dart';
 import 'package:nowingoogle/data/models/event_model.dart';
-import 'package:nowingoogle/domain/entities/agenda_item.dart';
 import 'package:nowingoogle/domain/entities/event_perk.dart';
+import 'package:nowingoogle/domain/entities/questionnaire.dart';
 import 'package:nowingoogle/presentation/constants/color_scheme.dart';
 
 var events = [
@@ -13,29 +13,7 @@ var events = [
     poster: "Google Developer Groups",
     status: "hybrid",
     venue: " GITAM (Deemed to be University)",
-    agenda: [
-      AgendaItem(
-        title: "Leveraging Communities",
-        type: AgendaItemType.keynote,
-        time: DateTime(2023, 12, 2, 10).microsecondsSinceEpoch,
-        speaker: ushaMaam.toEntity(),
-      ),
-      AgendaItem(
-        title: "the all new, Android Studio: Bot",
-        type: AgendaItemType.workshop,
-        time: DateTime(2023, 12, 2, 11).microsecondsSinceEpoch,
-        speaker: speakerState.toEntity(),
-        requirements: [
-          "Android Studio",
-          "Compose experience",
-        ],
-        resources: [
-          const EventResource(
-              title: "Documentation",
-              link: "https://developer.android.com/studio/preview/studio-bot"),
-        ],
-      ),
-    ],
+    agenda: devfest2022Agenda,
     certificate: "",
     date: DateTime(2023, 12, 2, 10).microsecondsSinceEpoch,
     latitude: 17.7816493,
@@ -60,6 +38,25 @@ var events = [
     registrationsOpen: true,
     message:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et mauris dui. Duis viverra quam venenatis dui tincidunt.",
+    questionnaire: const Questionnaire(
+      questions: [
+        Question<String>(
+            type: QuestionType.longAnswer,
+            question: "Why do you want to attend DevFest 2022?",
+            hint: "I want to attend DevFest because"),
+        Question<String>(
+          type: QuestionType.mcq,
+          question: "Select the Google tech stacks that you're interested in?",
+          options: [
+            "Android",
+            "Flutter",
+            "Machine Learning",
+            "Cloud",
+            "Web",
+          ],
+        ),
+      ],
+    ),
     // secondaryColor: speakerColorScheme.primary,
     // primaryColor: const Color(0xFF34A853),
   ),

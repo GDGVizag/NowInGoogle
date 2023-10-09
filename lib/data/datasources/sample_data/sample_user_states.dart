@@ -41,6 +41,26 @@ const volunteerState = VolunteerModel(
     "registration",
   ],
 );
+const umaPrathima = VolunteerModel(
+  firstName: "Uma Prathima",
+  lastName: "Tammana",
+  username: "umaprathima",
+  avatar:
+      "https://media.licdn.com/dms/image/C5603AQEFZVniEKnE1A/profile-displayphoto-shrink_800_800/0/1635233448177?e=1702512000&v=beta&t=AfYbPF4lIUhBXfcG4f5KT_5oa0xvE_8si6AZPRjDccU",
+  isPOC: true,
+  career: "professional",
+  gender: "female",
+  handles: {SocialPlatform.linkedIn: "umaprathima"},
+  bio:
+      "Software Developer | MBA | Internshala Student Partner | GDG/WTM Vizag Core Volunteer",
+  email: "manas@spotmies.com",
+  phone: "9100162652",
+  organization: "Prodigit",
+  place: "Visakhapatnam",
+  teams: [
+    "icebreakers",
+  ],
+);
 
 //Organizer
 const organizerState = VolunteerModel(
@@ -103,5 +123,42 @@ const ushaMaam = SpeakerModel(
     email: "usha@gurujada.com",
     phone: "1234567890",
     organization: "GDG Vizag",
+    place: "Visakhapatnam");
+const gurumoorthy = SpeakerModel(
+    firstName: "Cdr. Gurumoorthy",
+    lastName: "Gangadharan",
+    username: "cdr.gurumoorthy",
+    avatar:
+        "https://cdn.theorg.com/4f111565-cc61-4eb6-93f8-3aabe6817453_medium.jpg",
+    career: "Associate Dean",
+    gender: "male",
+    handles: {
+      SocialPlatform.linkedIn: "gurumoorthygangadharan",
+    },
+    bio:
+        "Associate Dean - Career Services & External Relations; Head – GCGC, GITAM University | Empowering students shape their future",
+    talkTime: 10,
+    talkTitle: "Welcome to GITAM",
+    email: "ggangad@gitam.edu",
+    phone: "1234567890",
+    organization: "CGC, GITAM",
+    place: "Visakhapatnam");
+const krishna = SpeakerModel(
+    firstName: "Krishna Mohan",
+    lastName: "Chivukula",
+    username: "cvkmohan",
+    avatar:
+        "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_200,q_auto:good,w_200/v1/gcs/platform-data-goog/events/IMG_20220208_130837.jpeg",
+    career: "CTO",
+    gender: "male",
+    handles: {
+      SocialPlatform.twitter: "cvkmohan",
+    },
+    bio: "Elixir Programmer. India. Telugu",
+    talkTime: 30,
+    talkTitle: "Machine Learning Demystified",
+    email: "cvkmohan@gurujada.com",
+    phone: "1234567890",
+    organization: "Gurujada",
     place: "Visakhapatnam");
 var userStates = [attendeeState, volunteerState, organizerState, speakerState];

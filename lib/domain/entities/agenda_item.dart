@@ -1,11 +1,13 @@
+import 'package:dartz/dartz.dart';
 import 'package:nowingoogle/domain/entities/speaker.dart';
+import 'package:nowingoogle/domain/entities/volunteer.dart';
 
 class AgendaItem {
   final String title;
   final String? description;
   final int time;
   final AgendaItemType type;
-  final Speaker speaker;
+  final Either<List<Speaker>, List<Volunteer>> speaker;
   final String? streamLink;
   final String notes;
   final List<String> requirements;

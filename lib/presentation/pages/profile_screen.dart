@@ -5,6 +5,7 @@ import 'package:nowingoogle/domain/entities/speaker.dart';
 import 'package:nowingoogle/domain/entities/user.dart';
 import 'package:nowingoogle/domain/entities/volunteer.dart';
 import 'package:nowingoogle/domain/enums/user_roles.dart';
+import 'package:nowingoogle/presentation/pages/utils/profile_screen_arguments.dart';
 import 'package:nowingoogle/presentation/pages/widgets/io_footer.dart';
 import 'package:nowingoogle/presentation/layouts/profile/profile_header.dart';
 import 'package:nowingoogle/presentation/layouts/profile/profile_section.dart';
@@ -24,7 +25,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   var isEditing = false;
   @override
   Widget build(BuildContext context) {
-    final User user = ModalRoute.of(context)?.settings.arguments as User;
+    final profileScreenArguments =
+        ModalRoute.of(context)?.settings.arguments as ProfileScreenArguments;
+    final User user = profileScreenArguments.user;
+    final bool isSelfProfile = profileScreenArguments.isSelfProfile;
     var nameController =
         TextEditingController(text: "${user.firstName} ${user.lastName}");
     var handleController =
@@ -35,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     var organizationController = TextEditingController(text: user.organization);
     var placeController = TextEditingController(text: user.place);
     return Scaffold(
-      floatingActionButton: !isEditing
+      floatingActionButton: isSelfProfile && !isEditing
           ? FloatingActionButton.extended(
               backgroundColor: user.colorScheme.primaryContainer,
               foregroundColor: user.colorScheme.onPrimaryContainer,
@@ -104,27 +108,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               const SizedBox(
                                 height: 24,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SecondaryButton(
-                                    label: "Delete my data",
-                                    primaryColor: user.colorScheme.primary,
-                                    onPressed: () {},
-                                  ),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  PrimaryButton(
-                                    label: "Log out",
-                                    onPressed: () {
-                                      //TODO: Logout
-                                    },
-                                    primaryColor: user.colorScheme.primary,
-                                    onPrimaryColor: user.colorScheme.onPrimary,
-                                  ),
-                                ],
-                              ),
+                              isSelfProfile
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SecondaryButton(
+                                          label: "Delete my data",
+                                          primaryColor:
+                                              user.colorScheme.primary,
+                                          onPressed: () {},
+                                        ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        PrimaryButton(
+                                          label: "Log out",
+                                          onPressed: () {
+                                            //TODO: Logout
+                                          },
+                                          primaryColor:
+                                              user.colorScheme.primary,
+                                          onPrimaryColor:
+                                              user.colorScheme.onPrimary,
+                                        ),
+                                      ],
+                                    )
+                                  : const SizedBox(),
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 24.0),

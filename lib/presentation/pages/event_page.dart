@@ -6,6 +6,8 @@ import 'package:nowingoogle/domain/entities/agenda_item.dart';
 import 'package:nowingoogle/domain/entities/event.dart';
 import 'package:nowingoogle/domain/entities/event_perk.dart';
 import 'package:nowingoogle/domain/enums/event_type.dart';
+import 'package:nowingoogle/presentation/layouts/bottom_sheets/rsvp_bottom_sheet.dart';
+import 'package:nowingoogle/presentation/pages/utils/profile_screen_arguments.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class EventPage extends StatelessWidget {
@@ -86,7 +88,9 @@ class EventPage extends StatelessWidget {
                           : const SizedBox(),
                       event.registrationsOpen
                           ? FilledButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showRSVPBottomSheet(context, event);
+                              },
                               child: const Text("RSVP"),
                             )
                           : const SizedBox(),
@@ -379,65 +383,105 @@ class AgendaListTile extends StatelessWidget {
                       const SizedBox(
                         height: 8,
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed("profile",
-                              arguments: agendaItem.speaker);
-                        },
-                        child: Row(
-                          children: [
-                            ClipOval(
-                              child: Image.network(
-                                agendaItem.speaker.avatar,
-                                height: 54,
-                                width: 54,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 24,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      ListView.separated(
+                        itemBuilder: (context, speakerIndex) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                "profile",
+                                arguments: agendaItem.speaker.fold(
+                                  (speaker) => ProfileScreenArguments(
+                                    user: speaker[speakerIndex],
+                                    isSelfProfile: false,
+                                  ),
+                                  (volunteer) => ProfileScreenArguments(
+                                    user: volunteer[speakerIndex],
+                                    isSelfProfile: false,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "${agendaItem.speaker.firstName} ${agendaItem.speaker.lastName}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Icon(
-                                      Icons.verified,
-                                      color: Colors.blue.shade700,
-                                      size: 16,
-                                    ),
-                                  ],
+                                ClipOval(
+                                  child: Image.network(
+                                    agendaItem.speaker.fold(
+                                        (speaker) =>
+                                            speaker[speakerIndex].avatar,
+                                        (volunteer) =>
+                                            volunteer[speakerIndex].avatar),
+                                    height: 54,
+                                    width: 54,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                Text(
-                                  "${agendaItem.speaker.career}, ${agendaItem.speaker.organization}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(fontWeight: FontWeight.normal),
+                                const SizedBox(
+                                  width: 24,
                                 ),
-                                Text(
-                                  "@${agendaItem.speaker.username}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.grey.shade700),
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              "${agendaItem.speaker.fold((speaker) => speaker[speakerIndex].firstName, (volunteer) => volunteer[speakerIndex].firstName)} ${agendaItem.speaker.fold(
+                                                (speaker) =>
+                                                    speaker[speakerIndex]
+                                                        .lastName,
+                                                (volunteer) =>
+                                                    volunteer[speakerIndex]
+                                                        .lastName,
+                                              )}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          Icon(
+                                            Icons.verified,
+                                            color: Colors.blue.shade700,
+                                            size: 16,
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        "${agendaItem.speaker.fold((speaker) => speaker[speakerIndex].career, (volunteer) => volunteer[speakerIndex].career)}, ${agendaItem.speaker.fold((speaker) => speaker[speakerIndex].organization, (volunteer) => volunteer[speakerIndex].organization)}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.normal),
+                                      ),
+                                      Text(
+                                        "@${agendaItem.speaker.fold((speaker) => speaker[speakerIndex].username, (volunteer) => volunteer[speakerIndex].username)}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.grey.shade700),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
-                          ],
+                          );
+                        },
+                        separatorBuilder: (context, _) => const SizedBox(
+                          height: 8,
                         ),
+                        itemCount: agendaItem.speaker
+                            .fold((l) => l.length, (r) => r.length),
+                        shrinkWrap: true,
+                        primary: false,
+                        padding: EdgeInsets.zero,
                       ),
                       agendaItem.notes.isEmpty
                           ? const SizedBox()
@@ -508,50 +552,70 @@ class AgendaListTile extends StatelessWidget {
                             ),
                       agendaItem.resources.isEmpty
                           ? const SizedBox()
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 24,
-                                ),
-                                Text(
-                                  "Resources",
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                ListView.separated(
-                                  itemBuilder: (context, resourceIndex) {
-                                    final resource =
-                                        agendaItem.resources[resourceIndex];
-                                    return InkWell(
-                                      onTap: () {
-                                        launchUrlString(resource.link);
+                          : agendaItem.resources
+                                  .where((element) =>
+                                      element.title.toLowerCase() ==
+                                      "slido link")
+                                  .isEmpty
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 24,
+                                    ),
+                                    Text(
+                                      "Resources",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium,
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    ListView.separated(
+                                      itemBuilder: (context, resourceIndex) {
+                                        final resource =
+                                            agendaItem.resources[resourceIndex];
+                                        return InkWell(
+                                          onTap: () {
+                                            launchUrlString(resource.link);
+                                          },
+                                          child: Text(
+                                            resource.title,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge
+                                                ?.copyWith(
+                                                  color: Colors.blue.shade700,
+                                                ),
+                                          ),
+                                        );
                                       },
-                                      child: Text(
-                                        resource.title,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge
-                                            ?.copyWith(
-                                              color: Colors.blue.shade700,
-                                            ),
+                                      separatorBuilder: (context, _) =>
+                                          const SizedBox(
+                                        height: 4,
                                       ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, _) =>
-                                      const SizedBox(
-                                    height: 4,
+                                      itemCount: agendaItem.resources.length,
+                                      shrinkWrap: true,
+                                      primary: false,
+                                      padding: EdgeInsets.zero,
+                                    ),
+                                  ],
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.only(top: 18.0),
+                                  child: FilledButton(
+                                    onPressed: () {
+                                      launchUrlString(agendaItem.resources
+                                          .where((element) =>
+                                              element.title.toLowerCase() ==
+                                              "slido link")
+                                          .first
+                                          .link);
+                                    },
+                                    child: const Text("Start Activity"),
                                   ),
-                                  itemCount: agendaItem.resources.length,
-                                  shrinkWrap: true,
-                                  primary: false,
-                                  padding: EdgeInsets.zero,
                                 ),
-                              ],
-                            ),
                     ],
                   ),
                 ),
@@ -568,18 +632,36 @@ class AgendaListTile extends StatelessWidget {
           const SizedBox(
             width: 16,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                agendaItem.title,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Text(
-                "${agendaItem.speaker.firstName} ${agendaItem.speaker.lastName}",
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-            ],
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  agendaItem.title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                ListView.separated(
+                  itemBuilder: (context, speakerIndex) {
+                    return Text(
+                      "${agendaItem.speaker.fold((speaker) => speaker[speakerIndex].firstName, (volunteer) => volunteer[speakerIndex].firstName)} ${agendaItem.speaker.fold(
+                        (speaker) => speaker[speakerIndex].lastName,
+                        (volunteer) => volunteer[speakerIndex].lastName,
+                      )}",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    );
+                  },
+                  separatorBuilder: (context, _) => const SizedBox(
+                    height: 4,
+                  ),
+                  itemCount:
+                      agendaItem.speaker.fold((l) => l.length, (r) => r.length),
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: EdgeInsets.zero,
+                ),
+              ],
+            ),
           )
         ],
       ),

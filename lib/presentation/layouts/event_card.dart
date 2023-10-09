@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nowingoogle/domain/entities/event.dart';
+import 'package:nowingoogle/presentation/layouts/bottom_sheets/rsvp_bottom_sheet.dart';
 
 class EventCard extends StatelessWidget {
   final Event event;
@@ -115,7 +116,9 @@ class EventCard extends StatelessWidget {
                           style: FilledButton.styleFrom(
                             backgroundColor: primaryColor,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            showRSVPBottomSheet(context, event);
+                          },
                           child: const Text("Register Now"),
                         ),
                         const SizedBox(

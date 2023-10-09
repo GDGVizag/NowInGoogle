@@ -201,8 +201,8 @@ class ChatListTile extends StatelessWidget {
                                 .withOpacity(0.2),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          padding:
-                              EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 8),
                           margin: const EdgeInsets.symmetric(horizontal: 8),
                           child: Text(
                             capitalize(user.userRole.name),
@@ -214,7 +214,7 @@ class ChatListTile extends StatelessWidget {
                                 ),
                           ),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                 ],
               ),
               Text(

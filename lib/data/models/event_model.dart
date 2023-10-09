@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nowingoogle/domain/entities/agenda_item.dart';
 import 'package:nowingoogle/domain/entities/event.dart';
 import 'package:nowingoogle/domain/entities/event_perk.dart';
+import 'package:nowingoogle/domain/entities/questionnaire.dart';
 import 'package:nowingoogle/domain/enums/event_type.dart';
 
 class EventModel extends Equatable {
@@ -21,6 +22,7 @@ class EventModel extends Equatable {
   final double? longitude; //used to add [Navigate to Venue]
   final List<EventPerk> perks;
   final bool registrationsOpen;
+  final Questionnaire? questionnaire;
   final String?
       message; //to display any quick message to users. eg: [Registrations Extended Till 00-00-0000!]
   final Color primaryColor;
@@ -39,6 +41,7 @@ class EventModel extends Equatable {
     required this.longitude,
     required this.perks,
     required this.registrationsOpen,
+    this.questionnaire,
     this.message,
     this.endDate,
     this.venue,
@@ -66,6 +69,7 @@ class EventModel extends Equatable {
             : LatLng(latitude!, longitude!),
         perks: perks,
         registrationsOpen: registrationsOpen,
+        questionnaire: questionnaire,
         message: message,
         endDate: endDate,
         venue: venue,

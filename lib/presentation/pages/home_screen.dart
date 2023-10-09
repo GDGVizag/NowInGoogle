@@ -4,6 +4,7 @@ import 'package:nowingoogle/data/datasources/sample_data/sample_events.dart';
 import 'package:nowingoogle/data/datasources/sample_data/sample_user_states.dart';
 import 'package:nowingoogle/presentation/layouts/profile/profile_avatar_image.dart';
 import 'package:nowingoogle/presentation/layouts/story/story_carousel.dart';
+import 'package:nowingoogle/presentation/pages/utils/profile_screen_arguments.dart';
 import 'package:nowingoogle/presentation/pages/widgets/event_announcement.dart';
 import 'package:nowingoogle/presentation/pages/widgets/home/around_you_section.dart';
 import 'package:nowingoogle/presentation/pages/widgets/home/interests_selection_screen.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userState = 3;
+    var userState = 0;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -26,10 +27,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: false,
         scrolledUnderElevation: 0,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(FeatherIcons.search),
-          ),
+          const SearchWidget(),
           const SizedBox(
             width: 12,
           ),
@@ -46,8 +44,12 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 24),
             child: InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed('profile',
-                    arguments: userStates[userState].toEntity());
+                Navigator.of(context).pushNamed(
+                  'profile',
+                  arguments: ProfileScreenArguments(
+                      user: userStates[userState].toEntity(),
+                      isSelfProfile: true),
+                );
               },
               child: ProfileAvatarImage(url: userStates[userState].avatar),
             ),
@@ -100,5 +102,51 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SearchWidget extends StatefulWidget {
+  const SearchWidget({
+    super.key,
+  });
+
+  @override
+  State<SearchWidget> createState() => _SearchWidgetState();
+}
+
+class _SearchWidgetState extends State<SearchWidget> {
+  bool isSearching = false;
+  @override
+  Widget build(BuildContext context) {
+    return isSearching
+        ? SizedBox(
+            width: 200,
+            child: TextField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.zero,
+                isDense: true,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+                prefixIcon: const Icon(FeatherIcons.search),
+                hintText: "Search",
+              ),
+              onSubmitted: (_) {
+                setState(() {
+                  isSearching = !isSearching;
+                });
+              },
+            ),
+          )
+        : IconButton(
+            onPressed: () {
+              setState(() {
+                isSearching = !isSearching;
+              });
+            },
+            icon: const Icon(FeatherIcons.search),
+          );
   }
 }
